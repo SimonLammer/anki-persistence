@@ -2,7 +2,8 @@ language: generic
 install: true
 script:
 - cp script.js "$TRAVIS_BUILD_DIR/minified.js"
-- echo v0.$TRAVIS_JOB_NUMBER
+- ls -la
+- ls -la $TRAVIS_BUILD_DIR
 before_deploy:
 - git config --local user.name "TravisCI"
 - git config --local user.email "travis@travis-ci.org"
