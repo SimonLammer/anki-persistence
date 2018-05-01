@@ -8,6 +8,9 @@ install:
 - wget https://dl.google.com/closure-compiler/compiler-latest.zip -O closure-compiler.zip
 - unzip closure-compiler.zip -d closure-compiler
 script:
+- cp script.js _
+- printf "prefix" > _
+- cat _
 - printf "// $VERSION - $GH_SCRIPT_URL\n$(cat script.js)" > script.js
 - cat script.js
 - java -jar closure-compiler/closure-compiler-*.jar --js script.js --js_output_file minified.js
