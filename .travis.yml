@@ -1,6 +1,6 @@
 env:
   global:
-  - VERSION="v0.0.$TRAVIS_BUILD_NUMBER"
+  - VERSION="v0.1.$TRAVIS_BUILD_NUMBER"
   - GH_BLOB_URL="https://github.com/SimonLammer/anki-persistence/blob/$TRAVIS_COMMIT"
   - GH_SCRIPT_URL="$GH_BLOB_URL/script.js"
 language: generic
@@ -11,7 +11,7 @@ script:
 - printf "// $VERSION - $GH_SCRIPT_URL\n$(cat script.js)" > script.js
 - cat script.js
 - java -jar closure-compiler/closure-compiler-*.jar --js script.js --js_output_file minified.js
-- printf "$(head -n 1 script.js)\n$(minified.js)" > minified.js
+- printf "$(head -n 1 script.js)\n$(cat minified.js)" > minified.js
 - cat minified.js
 before_deploy:
 - git config --local user.name "TravisCI"
