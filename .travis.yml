@@ -1,0 +1,12 @@
+language: generic
+install: true
+script:
+  - cp script.js minified.js
+deploy:
+  provider: releases
+  api_key: 
+    secure: "KlFxGyg93yVUoqddZauXiVKKnoIwyohYn/A5bDx1vz68PlD0HUAd8VHjIdWjT5+7g+B5gOu9lDniTJGCJ2wvfi/zKd8PavAQFkJdURawN6IyYIGIj9NwmJKINczA+9xtwyH1eyjMx/uKmsqaUKCGCIBdUnnLI9Ai8zGVP9C3fd/ka7bj5PF3V105VNm8RZo+AyKHi19IkxgQ09JTzflx0tUlJ5/A0xRmJNDY267hK8smgVhI6NrLu0N+1fXJosoZFe7FsLd4EDAP3w3VoQ3QHEypsMIsbLT8WM9QVeUYqf3W8cNT68xmb9B7eZkBq7Oi1oHMiTo1xTi2q3RZ3ij8B3Nd5vwrnUIUOFwNvU2UOiomhsWLb4Mq/0HQBzwiX9r80oRrfRI/2QbnFDdsrXVfFr6eQJCTtDCmXvZEhzRUTPI6nKavtg/J3KXZYxmjaWoFEFGM87KWAn41ht9hmHSt4UFv6eadlfRezvDMwL5QnJfBwv35gYYGBu/MPcpqvc1dpDaTYo+2J7N+60NdSPmSBt/vEtbjolf460rSSflJBSr8Gqj5e1hrGk9RsJ321aiEcWIMKatdoIPIMjZzy+HwJQb5WoiiueAbS3bMkEYuX682bAYEFddwutgY7lhtpfrwvYKxdmYtYAuwH36zTFekMDj0ZVlEkGIRdIaxuQxbdYc="
+  file: "minified.js"
+  skip_cleanup: true
+#  on:
+#    tags: true
