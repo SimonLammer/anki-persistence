@@ -20,7 +20,7 @@ window.Persistence = new function() {
           py[_persistenceKey] = data;
         };
         this.load = function() {
-          return py[_persistenceKey];
+          return py[_persistenceKey] || null;
         };
       }
     } catch(err) {}
