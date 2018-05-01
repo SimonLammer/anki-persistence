@@ -1,4 +1,7 @@
-language: node_js
+language: generic
+install: true
+script:
+  - cp script.js minified.js
 deploy:
   provider: releases
   api_key: 
