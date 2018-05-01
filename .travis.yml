@@ -1,11 +1,22 @@
+env:
+  global:
+  - VERSION="v0.1.0-b$TRAVIS_BUILD_NUMBER"
+  - GH_BLOB_URL="https://github.com/SimonLammer/anki-persistence/blob/$TRAVIS_COMMIT"
+  - GH_SCRIPT_URL="$GH_BLOB_URL/script.js"
 language: generic
-install: true
+install:
+- wget https://dl.google.com/closure-compiler/compiler-latest.zip -O closure-compiler.zip
+- unzip closure-compiler.zip -d closure-compiler
 script:
-- cp script.js "$TRAVIS_BUILD_DIR/minified.js"
+- printf "// $VERSION - $GH_SCRIPT_URL\n$(cat script.js)" > script.js
+- cat script.js
+- java -jar closure-compiler/closure-compiler-*.jar --js script.js --js_output_file minified.js
+- printf "$(head -n 1 script.js)\n$(cat minified.js)" > minified.js
+- cat minified.js
 before_deploy:
 - git config --local user.name "TravisCI"
 - git config --local user.email "travis@travis-ci.org"
-- git tag "v0.0.$TRAVIS_BUILD_NUMBER" -a -m "Generated tag by TravisCI build for commit $TRAVIS_COMMIT"
+- git tag "$VERSION" -a -m "Generated tag by TravisCI build for commit $TRAVIS_COMMIT"
 deploy:
   provider: releases
   api_key:
