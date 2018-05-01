@@ -2,11 +2,11 @@ language: generic
 install: true
 script:
 - cp script.js "$TRAVIS_BUILD_DIR/minified.js"
-- echo $TRAVIS_JOB_NUMBER
+- echo v0.$TRAVIS_JOB_NUMBER
 before_deploy:
-      - git config --local user.name "TravisCI"
-      - git config --local user.email "travis@travis-ci.org"
-      - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+- git config --local user.name "TravisCI"
+- git config --local user.email "travis@travis-ci.org"
+- git tag "v0.$TRAVIS_JOB_NUMBER" -a -m "Generated tag by TravisCI build for commit $TRAVIS_COMMIT"
 deploy:
   provider: releases
   api_key:
