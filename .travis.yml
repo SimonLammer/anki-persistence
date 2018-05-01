@@ -1,10 +1,12 @@
+env:
+- VERSION="v0.0.$TRAVIS_BUILD_NUMBER"
 language: generic
 install:
 - wget https://dl.google.com/closure-compiler/compiler-latest.zip -O closure-compiler.zip
 - unzip closure-compiler.zip -d closure-compiler
 script:
-- java -jar closure-compiler/closure-compiler-*.jar --js script.js --js_output_file minified.js
-#- cp script.js "$TRAVIS_BUILD_DIR/minified.js"
+- java -jar closure-compiler/closure-compiler-*.jar --js script.js --js_output_file _minified.js
+- echo "// $VERSION"
 - cat minified.js
 before_deploy:
 - git config --local user.name "TravisCI"
