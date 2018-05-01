@@ -1,7 +1,11 @@
 language: generic
-install: true
+install:
+- wget https://dl.google.com/closure-compiler/compiler-latest.zip -O closure-compiler.zip
+- unzip closure-compiler.zip -d closure-compiler
 script:
-- cp script.js "$TRAVIS_BUILD_DIR/minified.js"
+- java -jar closure-compiler/closure-compiler-*.jar --js script.js --js_output_file minified.js
+#- cp script.js "$TRAVIS_BUILD_DIR/minified.js"
+- cat minified.js
 before_deploy:
 - git config --local user.name "TravisCI"
 - git config --local user.email "travis@travis-ci.org"
