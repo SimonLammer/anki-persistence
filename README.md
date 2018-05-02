@@ -20,10 +20,11 @@ if (Persistence.isAvailable()) {
 ~~~
 
 Other methods:
-|          Name           | Description |
-| -----------------------:|:----------- |
-| Persistence.store(data) | Persists the data, so it can be retrieved later. |
-|      Persistence.load() | Retrieves previously stored data. If no data has been stored yet, null is returned. |
+
+|                       Name    | Description |
+| -----------------------------:|:----------- |
+| ```Persistence.store(data)``` | Persists the data, so it can be retrieved later. |
+|      ```Persistence.load()``` | Retrieves previously stored data. If no data has been stored yet, null is returned. |
 
 *Some implementations of Persistence may use JSON.stringify and JSON.parse in the process of persisting and retrieving data.*
 
