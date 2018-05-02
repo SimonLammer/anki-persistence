@@ -1,34 +1,9 @@
 # anki-persistence
 Persist data between both sides of an anki flashcard.
 
-## Preparation
-
-TODO: Add screenshots
-
-To use anki-persistense, follow these steps:
-1. Download the script from [the latest release](releases/latest). We recommend using the minified version (```minified.js```) to save space in the anki card type.
-1. Copy and paste the file contents between to the beginning of front and back side of the card type.
-1. Ensure that both script blocks are enclosed in ```<script>``` and ```</script>```.
-
-## Usage
-
-Anki clients vary in their implementation and JavaScript can behave differently in each one. Therefore the before using other methods, check for availability:
-~~~
-if (Persistence.isAvailable()) {
-	// do stuff
-}
-~~~
-
-Other methods:
-
-|                       Name    | Description |
-| -----------------------------:|:----------- |
-| ```Persistence.store(data)``` | Persists the data, so it can be retrieved later. |
-|      ```Persistence.load()``` | Retrieves previously stored data. If no data has been stored yet, null is returned. |
-
-*Some implementations of Persistence may use JSON.stringify and JSON.parse in the process of persisting and retrieving data.*
-
 ## Example: Random number
+
+This example shows how anki-persistence can be used to display the same random number on both sides of an Anki flash card. **All of these images depict the same note!** You can try it out yourself with [this exported Anki deck](examples/random-number/anki-persistence.apkg).
 
 ### Result
 | Client                 | Front | Back |
@@ -96,6 +71,33 @@ window.back.appendChild(document.createTextNode(number));
 
 The note has two fields: ```Front``` and ```Back```.
 These are set to ```front``` and ```back``` respectively.
+
+## Preparation
+
+TODO: Add screenshots
+
+To use anki-persistense, follow these steps:
+1. Download the script from [the latest release](releases/latest). We recommend using the minified version (```minified.js```) to save space in the anki card type.
+1. Copy and paste the file contents between to the beginning of front and back side of the card type.
+1. Ensure that both script blocks are enclosed in ```<script>``` and ```</script>```.
+
+## Usage
+
+Anki clients vary in their implementation and JavaScript can behave differently in each one. Therefore the before using other methods, check for availability:
+~~~
+if (Persistence.isAvailable()) {
+	// do stuff
+}
+~~~
+
+Other methods:
+
+|                       Name    | Description |
+| -----------------------------:|:----------- |
+| ```Persistence.store(data)``` | Persists the data, so it can be retrieved later. |
+|      ```Persistence.load()``` | Retrieves previously stored data. If no data has been stored yet, null is returned. |
+
+*Some implementations of Persistence may use JSON.stringify and JSON.parse in the process of persisting and retrieving data.*
 
 # Acknowledgements
 
