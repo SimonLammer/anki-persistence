@@ -1,6 +1,6 @@
 env:
   global:
-  - VERSION="v0.1.1"
+  - VERSION="v0.1.2"
   - GH_BLOB_URL="https://github.com/SimonLammer/anki-persistence/blob/$TRAVIS_COMMIT"
   - GH_SCRIPT_URL="$GH_BLOB_URL/script.js"
 language: generic
