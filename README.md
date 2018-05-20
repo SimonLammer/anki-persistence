@@ -20,7 +20,7 @@ TODO: Test Mac, Linux and iOS
 
 ### Setup
 #### Front side
-~~~
+~~~html
 <script>
 // v0.1.0-b47 - https://github.com/SimonLammer/anki-persistence/blob/899fb859cbd7e84b8cf20e107d0d7f5f215d1fca/script.js
 window.Persistence=new function(){var b=!1;try{"object"===typeof window.sessionStorage&&(b=!0,this.store=function(a){sessionStorage.setItem("github.com/SimonLammer/anki-persistence",JSON.stringify(a))},this.load=function(){return JSON.parse(sessionStorage.getItem("github.com/SimonLammer/anki-persistence"))})}catch(a){}if(!b)try{"object"===typeof window.py&&(b=!0,this.store=function(a){py["github.com/SimonLammer/anki-persistence"]=a},this.load=function(){return py["github.com/SimonLammer/anki-persistence"]||
@@ -46,7 +46,7 @@ window.front.appendChild(document.createTextNode(number));
 
 #### Back side
 
-~~~
+~~~html
 <script>
 // v0.1.0-b47 - https://github.com/SimonLammer/anki-persistence/blob/899fb859cbd7e84b8cf20e107d0d7f5f215d1fca/script.js
 window.Persistence=new function(){var b=!1;try{"object"===typeof window.sessionStorage&&(b=!0,this.store=function(a){sessionStorage.setItem("github.com/SimonLammer/anki-persistence",JSON.stringify(a))},this.load=function(){return JSON.parse(sessionStorage.getItem("github.com/SimonLammer/anki-persistence"))})}catch(a){}if(!b)try{"object"===typeof window.py&&(b=!0,this.store=function(a){py["github.com/SimonLammer/anki-persistence"]=a},this.load=function(){return py["github.com/SimonLammer/anki-persistence"]||
@@ -102,3 +102,7 @@ Other methods:
 # Acknowledgements
 
 Huge thanks to [RunasSudo, whose code kick-started this project](https://yingtongli.me/blog/2015/03/15/random-question-generator-on-anki-using.html)
+
+## Other references
+
+* [r/Anki - Passings state between Fields](https://www.reddit.com/r/Anki/comments/4mhfmm/passing_state_between_fields/)
