@@ -106,3 +106,4 @@ Huge thanks to [RunasSudo, whose code kick-started this project](https://yington
 ## Other references
 
 * [r/Anki - Passings state between Fields](https://www.reddit.com/r/Anki/comments/4mhfmm/passing_state_between_fields/)
+* [r/Anki - Pass data between both sides of an Anki flashcard](https://www.reddit.com/r/Anki/comments/8ksjqb/pass_data_between_both_sides_of_an_anki_flashcard/)

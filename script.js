@@ -2,7 +2,7 @@ if (typeof(window.Persistence) === 'undefined') {
   window.Persistence = new function() {
     var _persistenceKey = 'github.com/SimonLammer/anki-persistence';
     var _isAvailable = false;
-    try {
+    try { // used in android
       if (typeof(window.sessionStorage) === 'object') {
         _isAvailable = true;
         this.store = function(data) {
@@ -13,18 +13,21 @@ if (typeof(window.Persistence) === 'undefined') {
         }
       }
     } catch(err) {}
-    if (!_isAvailable) {
-      try {
-        if (typeof(window.py) === 'object') {
-          _isAvailable = true;
-          this.store = function(data) {
-            py[_persistenceKey] = data;
-          };
-          this.load = function() {
-            return py[_persistenceKey] || null;
-          };
-        }
-      } catch(err) {}
+    var persistentKeys = [
+      "py", // used in windows client
+      "qt"  // used in linux and mac
+    ];
+    for (var i = 0; !_isAvailable && i < persistentKeys.length; i++) {
+      var obj = window[persistentKeys[i]];
+      if (typeof(obj) === 'object') {
+        _isAvailable = true;
+        this.store = function(data) {
+          obj[_persistenceKey] = data;
+        };
+        this.load = function() {
+          return obj[_persistenceKey] || null;
+        };
+      }
     }
     this.isAvailable = function() {
       return _isAvailable;
