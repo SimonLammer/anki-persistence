@@ -13,8 +13,10 @@ This example shows how anki-persistence can be used to display the same random n
 | Windows (card preview) | ![Random number example on the Windows client (card preview) - Front](examples/random-number/Windows_Preview-Front.jpg) | ![Random number example on the Windows client (card preview) - Back](examples/random-number/Windows_Preview-Back.jpg) |
 |                Android | ![Random number example on the Android client - Front](examples/random-number/AnkiDroid-Front.jpg) | ![Random number example on the Android client - Back](examples/random-number/AnkiDroid-Back.jpg) |
 | Android (card preview) | ![Random number example on the Android client (card preview) - Front](examples/random-number/AnkiDroid_Preview-Front.jpg) | ![Random number example on the Android client (card preview) - Back](examples/random-number/AnkiDroid_Preview-Back.jpg) |
+|                    Mac | ![Random number example on the Mac client - Front](examples/random-number/Mac-Front.png) | ![Random number example on the Mac client - Back](examples/random-number/Mac-Back.png) |
+|     Mac (card preview) | ![Random number example on the Mac client (card preview) - Front](examples/random-number/Mac_Preview-Front.png) | ![Random number example on the Mac client (card preview) - Back](examples/random-number/Mac_Preview-Back.png) |
 
-TODO: Test Mac, Linux and iOS
+TODO: Test iOS
 
 **Note that Persistence is not available for Windows card preview (```Persistence.isAvailable()``` returns ```false```), thus a default (0.4) is chosen.**
 
@@ -84,7 +86,8 @@ To use anki-persistense, follow these steps:
 ## Usage
 
 Anki clients vary in their implementation and JavaScript can behave differently in each one. Therefore the before using other methods, check for availability:
-~~~
+
+~~~javascript
 if (Persistence.isAvailable()) {
 	// do stuff
 }
@@ -101,7 +104,12 @@ Other methods:
 
 # Acknowledgements
 
-Huge thanks to [RunasSudo, whose code kick-started this project](https://yingtongli.me/blog/2015/03/15/random-question-generator-on-anki-using.html)
+Huge thanks to
+
+* [RunasSudo, whose code kick-started this project](https://yingtongli.me/blog/2015/03/15/random-question-generator-on-anki-using.html)!
+* [u/CheCheDaWaff for providing test information and screenshots of the woking random number example on the mac client](https://www.reddit.com/r/Anki/comments/8ksjqb/pass_data_between_both_sides_of_an_anki_flashcard/dzbpfdd/)
+
+
 
 ## Other references
 
