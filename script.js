@@ -14,8 +14,8 @@ if (typeof(window.Persistence) === 'undefined') {
       }
     } catch(err) {}
     var persistentKeys = [
-      "py", // used in windows client
-      "qt"  // used in linux and mac
+      "py", // used in windows
+      "qt"  // used in linux, mac and iOS
     ];
     for (var i = 0; !_isAvailable && i < persistentKeys.length; i++) {
       var obj = window[persistentKeys[i]];
