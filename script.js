@@ -1,6 +1,7 @@
+// based on - https://github.com/SimonLammer/anki-persistence/blob/b375e17530377572fac7e9eeeb1bd977f34ac22d/script.js
 if (typeof(window.Persistence) === 'undefined') {
   window.Persistence = new function() {
-    var _persistenceKey = 'github.com/SimonLammer/anki-persistence';
+    var _persistenceKey = 'github.com/SimonLammer/anki-persistence/';
     var _isAvailable = false;
     try { // used in android
       if (typeof(window.sessionStorage) === 'object') {
@@ -10,7 +11,16 @@ if (typeof(window.Persistence) === 'undefined') {
         };
         this.load = function() {
           return JSON.parse(sessionStorage.getItem(_persistenceKey));
-        }
+        };
+        this.getItem = function(key) {
+          return JSON.parse(sessionStorage.getItem(_persistenceKey + key));
+        };
+        this.setItem = function(key, val) {
+          sessionStorage.setItem(_persistenceKey + key, JSON.stringify(val));
+        };
+        this.removeItem = function(key) {
+          sessionStorage.removeItem(_persistenceKey + key);
+        };
       }
     } catch(err) {}
     var persistentKeys = [
@@ -26,6 +36,15 @@ if (typeof(window.Persistence) === 'undefined') {
         };
         this.load = function() {
           return obj[_persistenceKey] || null;
+        };
+        this.getItem = function(key) {
+          return obj[_persistenceKey + key];
+        };
+        this.setItem = function(key, val) {
+          obj[_persistenceKey + key] = val;
+        };
+        this.removeItem = function(key) {
+          delete obj[_persistenceKey + key];
         };
       }
     }
