@@ -15,6 +15,8 @@ This example shows how anki-persistence can be used to display the same random n
 | Android (card preview) | ![Random number example on the Android client (card preview) - Front](examples/random-number/AnkiDroid_Preview-Front.jpg) | ![Random number example on the Android client (card preview) - Back](examples/random-number/AnkiDroid_Preview-Back.jpg) |
 |                    Mac | ![Random number example on the Mac client - Front](examples/random-number/Mac-Front.png) | ![Random number example on the Mac client - Back](examples/random-number/Mac-Back.png) |
 |     Mac (card preview) | ![Random number example on the Mac client (card preview) - Front](examples/random-number/Mac_Preview-Front.png) | ![Random number example on the Mac client (card preview) - Back](examples/random-number/Mac_Preview-Back.png) |
+|                  Linux | ![Random number example on the Linux client - Front](examples/random-number/Linux-Front.png) | ![Random number example on the Linux client - Back](examples/random-number/Linux-Back.png) |
+|     Linux (card preview) | ![Random number example on the Linux client (card preview) - Front](examples/random-number/Linux_Preview-Front.png) | ![Random number example on the Linux client (card preview) - Back](examples/random-number/Linux_Preview-Back.png) |
 
 TODO: Test iOS
 
@@ -107,8 +109,8 @@ Other methods:
 Huge thanks to
 
 * [RunasSudo, whose code kick-started this project](https://yingtongli.me/blog/2015/03/15/random-question-generator-on-anki-using.html)!
-* [u/CheCheDaWaff for providing test information and screenshots of the woking random number example on the mac client](https://www.reddit.com/r/Anki/comments/8ksjqb/pass_data_between_both_sides_of_an_anki_flashcard/dzbpfdd/)
-
+* [u/CheCheDaWaff for providing test information and screenshots of the woking random number example on the **mac** client](https://www.reddit.com/r/Anki/comments/8ksjqb/pass_data_between_both_sides_of_an_anki_flashcard/dzbpfdd/)
+* [u/qwiglydee for providing test information and screenshots of the working random number example on the **linux** client](https://www.reddit.com/r/Anki/comments/8ksjqb/pass_data_between_both_sides_of_an_anki_flashcard/dzbpnbm/)
 
 
 ## Other references
