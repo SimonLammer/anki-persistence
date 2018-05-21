@@ -87,7 +87,7 @@ To use anki-persistense, follow these steps:
 
 ## Usage
 
-Anki clients vary in their implementation and JavaScript can behave differently in each one. Therefore the before using other methods, check for availability:
+Anki clients vary in their implementation and JavaScript can behave differently in each one. Therefore, check for availability before using other Persistence methods.
 
 ~~~javascript
 if (Persistence.isAvailable()) {
@@ -103,6 +103,10 @@ Other methods:
 |      ```Persistence.load()``` | Retrieves previously stored data. If no data has been stored yet, null is returned. |
 
 *Some implementations of Persistence may use JSON.stringify and JSON.parse in the process of persisting and retrieving data.*
+
+### Clear storage
+
+```Persistence.store``` may persist data across cards, this should be stopped by calling ```Persistence.store(null)``` at the end of the backside. (If this gets called on the frontside's beginning instead, you cannot use anki's ```{{FrontSide}}``` special field in the backside *- because this would delete the persisted data*)
 
 # Acknowledgements
 
