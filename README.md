@@ -22,9 +22,9 @@ TODO: Test Mac, Linux and iOS
 #### Front side
 ~~~html
 <script>
-// v0.1.0-b47 - https://github.com/SimonLammer/anki-persistence/blob/899fb859cbd7e84b8cf20e107d0d7f5f215d1fca/script.js
-window.Persistence=new function(){var b=!1;try{"object"===typeof window.sessionStorage&&(b=!0,this.store=function(a){sessionStorage.setItem("github.com/SimonLammer/anki-persistence",JSON.stringify(a))},this.load=function(){return JSON.parse(sessionStorage.getItem("github.com/SimonLammer/anki-persistence"))})}catch(a){}if(!b)try{"object"===typeof window.py&&(b=!0,this.store=function(a){py["github.com/SimonLammer/anki-persistence"]=a},this.load=function(){return py["github.com/SimonLammer/anki-persistence"]||
-null})}catch(a){}this.isAvailable=function(){return b}};
+// v0.2.1 - https://github.com/SimonLammer/anki-persistence/blob/8a3648baa02a9cd5c1f51e5adf3772dd5d494757/script.js
+"undefined"===typeof window.Persistence&&(window.Persistence=new function(){var a=!1;try{"object"===typeof window.sessionStorage&&(a=!0,this.store=function(a){sessionStorage.setItem("github.com/SimonLammer/anki-persistence",JSON.stringify(a))},this.load=function(){return JSON.parse(sessionStorage.getItem("github.com/SimonLammer/anki-persistence"))})}catch(e){}for(var d=["py","qt"],b=0;!a&&b<d.length;b++){var c=window[d[b]];"object"===typeof c&&(a=!0,this.store=function(a){c["github.com/SimonLammer/anki-persistence"]=
+a},this.load=function(){return c["github.com/SimonLammer/anki-persistence"]||null})}this.isAvailable=function(){return a}});
 </script>
 
 {{Front}}
@@ -48,9 +48,9 @@ window.front.appendChild(document.createTextNode(number));
 
 ~~~html
 <script>
-// v0.1.0-b47 - https://github.com/SimonLammer/anki-persistence/blob/899fb859cbd7e84b8cf20e107d0d7f5f215d1fca/script.js
-window.Persistence=new function(){var b=!1;try{"object"===typeof window.sessionStorage&&(b=!0,this.store=function(a){sessionStorage.setItem("github.com/SimonLammer/anki-persistence",JSON.stringify(a))},this.load=function(){return JSON.parse(sessionStorage.getItem("github.com/SimonLammer/anki-persistence"))})}catch(a){}if(!b)try{"object"===typeof window.py&&(b=!0,this.store=function(a){py["github.com/SimonLammer/anki-persistence"]=a},this.load=function(){return py["github.com/SimonLammer/anki-persistence"]||
-null})}catch(a){}this.isAvailable=function(){return b}};
+// v0.2.1 - https://github.com/SimonLammer/anki-persistence/blob/8a3648baa02a9cd5c1f51e5adf3772dd5d494757/script.js
+"undefined"===typeof window.Persistence&&(window.Persistence=new function(){var a=!1;try{"object"===typeof window.sessionStorage&&(a=!0,this.store=function(a){sessionStorage.setItem("github.com/SimonLammer/anki-persistence",JSON.stringify(a))},this.load=function(){return JSON.parse(sessionStorage.getItem("github.com/SimonLammer/anki-persistence"))})}catch(e){}for(var d=["py","qt"],b=0;!a&&b<d.length;b++){var c=window[d[b]];"object"===typeof c&&(a=!0,this.store=function(a){c["github.com/SimonLammer/anki-persistence"]=
+a},this.load=function(){return c["github.com/SimonLammer/anki-persistence"]||null})}this.isAvailable=function(){return a}});
 </script>
 
 {{Back}}
