@@ -15,29 +15,6 @@ if (typeof(window.Persistence) === 'undefined') {
             }
           };
         };
-        this.key = function(index) {
-          for (var i = 0, j = 0; i < sessionStorage.length; i++) {
-            var k = sessionStorage.key(i);
-            if (k.indexOf(_persistenceKey) == 0) {
-              if (j == index) {
-                return k.substr(_persistenceKey.length);
-              }
-              j++;
-            }
-          };
-          return null;
-        };
-        Object.defineProperty(this, 'length', {
-          get: function() {
-            var s = 0;
-            for (var i = 0; i < sessionStorage.length; i++) {
-              if (sessionStorage.key(i).indexOf(_persistenceKey) == 0) {
-                s++;
-              }
-            }
-            return s;
-          }
-        });
         this.setItem = function(key, data) {
           if (data == undefined) {
             data = key;
@@ -68,38 +45,9 @@ if (typeof(window.Persistence) === 'undefined') {
     var isAvailable = false;
     if (typeof(obj) === 'object') {
       isAvailable = true;
-      var forEachKey = function(f) {
-        var i = 0;
-        for (var key in obj[_persistenceKey]) {
-          var r = f(key, i);
-          if (r != undefined) {
-            return r;
-          }
-          i++;
-        }
-      };
       this.clear = function() {
         obj[_persistenceKey] = {};
       };
-      this.key = function(index) {
-        var i = 0;
-        for (var key in obj[_persistenceKey]) {
-          if (index == i) {
-            return key;
-          }
-          i++;
-        }
-        return null;
-      };
-      Object.defineProperty(this, 'length', {
-        get: function() {
-          var s = 0;
-          for (var key in obj[_persistenceKey]) {
-            s++;
-          }
-          return s;
-        }
-      });
       this.setItem = function(key, data) {
         if (data == undefined) {
           data = key;
