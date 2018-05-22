@@ -1,0 +1,22 @@
+{
+  "name": "anki-persistence",
+  "version": "0.2.2",
+  "description": "Persist data between both sides of an anki flashcard.",
+  "main": "script.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimonLammer/anki-persistence.git"
+  },
+  "author": "Simon Lammer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SimonLammer/anki-persistence/issues"
+  },
+  "homepage": "https://github.com/SimonLammer/anki-persistence#readme"
+}
