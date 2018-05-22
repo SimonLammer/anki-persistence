@@ -1,0 +1,29 @@
+{
+  "name": "anki-persistence",
+  "version": "0.2.2",
+  "description": "Persist data between both sides of an anki flashcard.",
+  "main": "script.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "karma start test/karma.conf.js --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimonLammer/anki-persistence.git"
+  },
+  "author": "Simon Lammer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SimonLammer/anki-persistence/issues"
+  },
+  "homepage": "https://github.com/SimonLammer/anki-persistence#readme",
+  "devDependencies": {
+    "jasmine-core": "^3.1.0",
+    "karma": "^2.0.2",
+    "karma-jasmine": "^1.1.2",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-verbose-reporter": "0.0.6"
+  }
+}

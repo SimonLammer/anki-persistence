@@ -1,10 +1,10 @@
 if (typeof(window.Persistence) === 'undefined') {
-  window.Persistence = new function() {
-    var _persistenceKey = 'github.com/SimonLammer/anki-persistence';
-    var _isAvailable = false;
-    try { // used in android
+  var _persistenceKey = 'github.com/SimonLammer/anki-persistence';
+  window.Persistence_sessionStorage = function() { // used in android
+    var isAvailable = false;
+    try {
       if (typeof(window.sessionStorage) === 'object') {
-        _isAvailable = true;
+        isAvailable = true;
         this.store = function(data) {
           sessionStorage.setItem(_persistenceKey, JSON.stringify(data));
         };
@@ -13,24 +13,37 @@ if (typeof(window.Persistence) === 'undefined') {
         }
       }
     } catch(err) {}
-    var persistentKeys = [
-      "py", // used in windows
-      "qt"  // used in linux, mac and iOS
-    ];
-    for (var i = 0; !_isAvailable && i < persistentKeys.length; i++) {
-      var obj = window[persistentKeys[i]];
-      if (typeof(obj) === 'object') {
-        _isAvailable = true;
-        this.store = function(data) {
-          obj[_persistenceKey] = data;
-        };
-        this.load = function() {
-          return obj[_persistenceKey] || null;
-        };
-      }
+    this.isAvailable = function() {
+      return isAvailable;
+    }
+  };
+  window.Persistence_windowKey =  function(persistentKey) {
+    var obj = window[persistentKey];
+    var isAvailable = false;
+    if (typeof(obj) === 'object') {
+      isAvailable = true;
+      this.store = function(data) {
+        obj[_persistenceKey] = data;
+      };
+      this.load = function() {
+        return obj[_persistenceKey] || null;
+      };
     }
     this.isAvailable = function() {
-      return _isAvailable;
+      return isAvailable;
     };
-  }();
+  };
+  var persistentKeys = [
+    "py", // used in windows
+    "qt"  // used in linux, mac and iOS
+  ];
+  for (var i = 0; i < persistentKeys.length; i++) {
+    window.Persistence = new Persistence_windowKey(persistentKeys[i]);
+    if (window.Persistence.isAvailable()) {
+      break;
+    }
+  }
+  if (!window.Persistence.isAvailable()) {
+    window.Persistence = new Persistence_sessionStorage();
+  }
 }
