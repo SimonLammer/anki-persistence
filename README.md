@@ -14,29 +14,28 @@ It could also be used completely different as well. To let the user input someth
 This example shows how anki-persistence can be used to display the same random number on both sides of an Anki flash card. **All of these images depict the same note!** You can try it out yourself with [this exported Anki deck](examples/random-number/anki-persistence.apkg).
 
 ### Result
-| Client                 | Front | Back |
-| ----------------------:|:-----:|:----:|
-|                    Web | ![Random number example on the web client - Front](examples/random-number/Web-Front.jpg) | ![Random number example on the web client - Back](examples/random-number/Web-Back.jpg) |
-|                Android | ![Random number example on the Android client - Front](examples/random-number/AnkiDroid-Front.jpg) | ![Random number example on the Android client - Back](examples/random-number/AnkiDroid-Back.jpg) |
+| Client  | Front | Back |
+| -------:|:-----:|:----:|
+|     Web | ![Random number example on the web client - Front](examples/random-number/Web-Front.jpg) | ![Random number example on the web client - Back](examples/random-number/Web-Back.jpg) |
+| Android | ![Random number example on the Android client - Front](examples/random-number/AnkiDroid-Front.jpg) | ![Random number example on the Android client - Back](examples/random-number/AnkiDroid-Back.jpg) |
 | Android (card preview) | ![Random number example on the Android client (card preview) - Front](examples/random-number/AnkiDroid_Preview-Front.jpg) | ![Random number example on the Android client (card preview) - Back](examples/random-number/AnkiDroid_Preview-Back.jpg) |
-|                    iOS | ![Random number example on the iOS client - Front](examples/random-number/iOS-Front.jpg) | ![Random number example on the iOS client - Back](examples/random-number/iOS-Back.jpg) |
+|     iOS | ![Random number example on the iOS client - Front](examples/random-number/iOS-Front.jpg) | ![Random number example on the iOS client - Back](examples/random-number/iOS-Back.jpg) |
 |     iOS (card preview) | ![Random number example on the iOS client (card preview) - Front](examples/random-number/iOS_Preview-Front.jpg) | ![Random number example on the iOS client (card preview) - Back](examples/random-number/iOS_Preview-Back.jpg) |
-|                    Mac | ![Random number example on the Mac client - Front](examples/random-number/Mac-Front.png) | ![Random number example on the Mac client - Back](examples/random-number/Mac-Back.png) |
+|     Mac | ![Random number example on the Mac client - Front](examples/random-number/Mac-Front.png) | ![Random number example on the Mac client - Back](examples/random-number/Mac-Back.png) |
 |     Mac (card preview) | ![Random number example on the Mac client (card preview) - Front](examples/random-number/Mac_Preview-Front.png) | ![Random number example on the Mac client (card preview) - Back](examples/random-number/Mac_Preview-Back.png) |
-|                Windows | ![Random number example on the Windows client - Front](examples/random-number/Windows-Front.jpg) | ![Random number example on the Windows client - Back](examples/random-number/Windows-Back.jpg) |
-| Windows (card preview) | ![Random number example on the Windows client (card preview) - Front](examples/random-number/Windows_Preview-Front.jpg) | ![Random number example on the Windows client (card preview) - Back](examples/random-number/Windows_Preview-Back.jpg) |
-|                  Linux | ![Random number example on the Linux client - Front](examples/random-number/Linux-Front.png) | ![Random number example on the Linux client - Back](examples/random-number/Linux-Back.png) |
-|     Linux (card preview) | ![Random number example on the Linux client (card preview) - Front](examples/random-number/Linux_Preview-Front.png) | ![Random number example on the Linux client (card preview) - Back](examples/random-number/Linux_Preview-Back.png) |
+| Windows | ![Random number example on the Windows client - Front](examples/random-number/Windows-Front.jpg) | ![Random number example on the Windows client - Back](examples/random-number/Windows-Back.jpg) |
+| Windows (card type editor preview) | ![Random number example on the Windows client (card type editor preview) - Front](examples/random-number/Windows_ctePreview-Front.jpg) | ![Random number example on the Windows client (card type editor preview) - Back](examples/random-number/Windows_ctePreview-Back.jpg) |
+|   Linux | ![Random number example on the Linux client - Front](examples/random-number/Linux-Front.png) | ![Random number example on the Linux client - Back](examples/random-number/Linux-Back.png) |
+|   Linux (card preview) | ![Random number example on the Linux client (card preview) - Front](examples/random-number/Linux_Preview-Front.png) | ![Random number example on the Linux client (card preview) - Back](examples/random-number/Linux_Preview-Back.png) |
 
-**Note that Persistence is not available for Windows card preview (```Persistence.isAvailable()``` returns ```false```), thus a default (0.4) is chosen.**
+**Note that Persistence is not available for Windows card type editor preview (```Persistence.isAvailable()``` returns ```false```), thus a default (0.4) is chosen.**
 
 ### Setup
 #### Front side
 ~~~html
 <script>
-// v0.2.1 - https://github.com/SimonLammer/anki-persistence/blob/8a3648baa02a9cd5c1f51e5adf3772dd5d494757/script.js
-"undefined"===typeof window.Persistence&&(window.Persistence=new function(){var a=!1;try{"object"===typeof window.sessionStorage&&(a=!0,this.store=function(a){sessionStorage.setItem("github.com/SimonLammer/anki-persistence",JSON.stringify(a))},this.load=function(){return JSON.parse(sessionStorage.getItem("github.com/SimonLammer/anki-persistence"))})}catch(e){}for(var d=["py","qt"],b=0;!a&&b<d.length;b++){var c=window[d[b]];"object"===typeof c&&(a=!0,this.store=function(a){c["github.com/SimonLammer/anki-persistence"]=
-a},this.load=function(){return c["github.com/SimonLammer/anki-persistence"]||null})}this.isAvailable=function(){return a}});
+// v0.3.0 - https://github.com/SimonLammer/anki-persistence/blob/54444f7b58de784c781dcc904f6ce559f7ce3ed2/script.js
+if(void 0===window.Persistence){var _persistenceKey="github.com/SimonLammer/anki-persistence/",_defaultKey="_default";window.Persistence_sessionStorage=function(){var e=!1;try{"object"==typeof window.sessionStorage&&(e=!0,this.clear=function(){for(var e=0;e<sessionStorage.length;e++){var t=sessionStorage.key(e);0==t.indexOf(_persistenceKey)&&(sessionStorage.removeItem(t),e--)}},this.setItem=function(e,t){void 0==t&&(t=e,e=_defaultKey),sessionStorage.setItem(_persistenceKey+e,JSON.stringify(t))},this.getItem=function(e){return void 0==e&&(e=_defaultKey),JSON.parse(sessionStorage.getItem(_persistenceKey+e))},this.removeItem=function(e){void 0==e&&(e=_defaultKey),sessionStorage.removeItem(_persistenceKey+e)})}catch(e){}this.isAvailable=function(){return e}},window.Persistence_windowKey=function(e){var t=window[e],s=!1;"object"==typeof t&&(s=!0,this.clear=function(){t[_persistenceKey]={}},this.setItem=function(e,s){void 0==s&&(s=e,e=_defaultKey),t[_persistenceKey][e]=s},this.getItem=function(e){return void 0==e&&(e=_defaultKey),t[_persistenceKey][e]||null},this.removeItem=function(e){void 0==e&&(e=_defaultKey),delete t[_persistenceKey][e]},void 0==t[_persistenceKey]&&this.clear()),this.isAvailable=function(){return s}};for(var persistentKeys=["py","qt"],i=0;i<persistentKeys.length&&(window.Persistence=new Persistence_windowKey(persistentKeys[i]),!window.Persistence.isAvailable());i++);window.Persistence.isAvailable()||(window.Persistence=new Persistence_sessionStorage)}
 </script>
 
 {{Front}}
@@ -44,12 +43,12 @@ a},this.load=function(){return c["github.com/SimonLammer/anki-persistence"]||nul
 <div id="front"></div>
 
 <script>
-var number = 0.4;                // Default to 0.4.
-if (Persistence.isAvailable()) { // Check whether Persistence works on the client.
-  number = Persistence.load();   // Load a previously stored number. (In case {{FrontSide}} is used)
-  if (number == null) {          // If there was a previously stored number:
-    number = Math.random();      //   1. Create a random number.
-    Persistence.store(number);   //   2. Store that number
+var number = 0.4;                 // Default to 0.4.
+if (Persistence.isAvailable()) {  // Check whether Persistence works on the client.
+  number = Persistence.getItem(); // Retrieve a previously stored number and override the default. (In case this is executed on the backside as well by {{FrontSide}})
+  if (number == null) {           // If there was no number stored previously:
+    number = Math.random();       //   1. Create a random number and override the default.
+    Persistence.setItem(number);  //   2. Store that number
   }
 }
 window.front.appendChild(document.createTextNode(number)); // Print the number.
@@ -60,9 +59,8 @@ window.front.appendChild(document.createTextNode(number)); // Print the number.
 
 ~~~html
 <script>
-// v0.2.1 - https://github.com/SimonLammer/anki-persistence/blob/8a3648baa02a9cd5c1f51e5adf3772dd5d494757/script.js
-"undefined"===typeof window.Persistence&&(window.Persistence=new function(){var a=!1;try{"object"===typeof window.sessionStorage&&(a=!0,this.store=function(a){sessionStorage.setItem("github.com/SimonLammer/anki-persistence",JSON.stringify(a))},this.load=function(){return JSON.parse(sessionStorage.getItem("github.com/SimonLammer/anki-persistence"))})}catch(e){}for(var d=["py","qt"],b=0;!a&&b<d.length;b++){var c=window[d[b]];"object"===typeof c&&(a=!0,this.store=function(a){c["github.com/SimonLammer/anki-persistence"]=
-a},this.load=function(){return c["github.com/SimonLammer/anki-persistence"]||null})}this.isAvailable=function(){return a}});
+// v0.3.0 - https://github.com/SimonLammer/anki-persistence/blob/54444f7b58de784c781dcc904f6ce559f7ce3ed2/script.js
+if(void 0===window.Persistence){var _persistenceKey="github.com/SimonLammer/anki-persistence/",_defaultKey="_default";window.Persistence_sessionStorage=function(){var e=!1;try{"object"==typeof window.sessionStorage&&(e=!0,this.clear=function(){for(var e=0;e<sessionStorage.length;e++){var t=sessionStorage.key(e);0==t.indexOf(_persistenceKey)&&(sessionStorage.removeItem(t),e--)}},this.setItem=function(e,t){void 0==t&&(t=e,e=_defaultKey),sessionStorage.setItem(_persistenceKey+e,JSON.stringify(t))},this.getItem=function(e){return void 0==e&&(e=_defaultKey),JSON.parse(sessionStorage.getItem(_persistenceKey+e))},this.removeItem=function(e){void 0==e&&(e=_defaultKey),sessionStorage.removeItem(_persistenceKey+e)})}catch(e){}this.isAvailable=function(){return e}},window.Persistence_windowKey=function(e){var t=window[e],s=!1;"object"==typeof t&&(s=!0,this.clear=function(){t[_persistenceKey]={}},this.setItem=function(e,s){void 0==s&&(s=e,e=_defaultKey),t[_persistenceKey][e]=s},this.getItem=function(e){return void 0==e&&(e=_defaultKey),t[_persistenceKey][e]||null},this.removeItem=function(e){void 0==e&&(e=_defaultKey),delete t[_persistenceKey][e]},void 0==t[_persistenceKey]&&this.clear()),this.isAvailable=function(){return s}};for(var persistentKeys=["py","qt"],i=0;i<persistentKeys.length&&(window.Persistence=new Persistence_windowKey(persistentKeys[i]),!window.Persistence.isAvailable());i++);window.Persistence.isAvailable()||(window.Persistence=new Persistence_sessionStorage)}
 </script>
 
 {{Back}}
@@ -70,10 +68,10 @@ a},this.load=function(){return c["github.com/SimonLammer/anki-persistence"]||nul
 <div id="back"></dv>
 
 <script>
-var number = 0.4;                // Default to 0.4.
-if (Persistence.isAvailable()) { // Check whether Persistence works on the client.
-  number = Persistence.load();   // Load the previously stored number
-  Persistence.store(null);       // Clear the storage, so a new random number will be created on the next card.
+var number = 0.4;                 // Default to 0.4.
+if (Persistence.isAvailable()) {  // Check whether Persistence works on the client.
+  number = Persistence.getItem(); // Retrieve the previously stored number and override the default.
+  Persistence.clear();            // Clear the storage, so a new random number will be created on the next card.
 }
 window.back.appendChild(document.createTextNode(number)); // Print the number.
 </script>
@@ -107,14 +105,19 @@ Other methods:
 
 |                       Name    | Description |
 | -----------------------------:|:----------- |
-| ```Persistence.store(data)``` | Persists the data, so it can be retrieved later. |
-|      ```Persistence.load()``` | Retrieves previously stored data. If no data has been stored yet, null is returned. |
+|            ```Persistence.clear()``` | Removes all previously persisted key-value pairs. |
+|       ```Persistence.getItem(key)``` | Retrieves the data associated with the key. If no data is associated to the given key, null is returned. |
+|         ```Persistence.getItem())``` | Retrieves the data associated with a default key. |
+| ```Persistence.setItem(key, data)``` | Persists the key-value pair. |
+|      ```Persistence.setItem(data)``` | Persists the value using a default key. |
+|    ```Persistence.removeItem(key)``` | Removes the data associated with the key. If no data is associated to the given key, nothing happens. |
+|       ```Persistence.removeItem()``` | Removes the data associated with a default key. |
 
 *Some implementations of Persistence may use JSON.stringify and JSON.parse in the process of persisting and retrieving data.*
 
 ### Clear storage
 
-```Persistence.store``` may persist data across cards, this should be stopped by calling ```Persistence.store(null)``` at the end of the backside. (If this gets called on the frontside's beginning instead, you cannot use anki's ```{{FrontSide}}``` special field in the backside *- because this would delete the persisted data*)
+```Persistence.setItem``` may persist data across cards, this should be stopped by calling ```Persistence.clear()``` at the end of the backside. (If this gets called on the frontside's beginning instead, you cannot use anki's ```{{FrontSide}}``` special field in the backside *- because this would delete the persisted data*)
 
 # Acknowledgements
 
