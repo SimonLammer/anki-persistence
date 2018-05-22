@@ -30,6 +30,8 @@ deploy:
   skip_cleanup: true
   on:
     repo: SimonLammer/anki-persistence
+    branch: master
+    condition: $(git describe --tags --abbrev=0) != $VERSION
 cache:
   directories:
   - node_modules
