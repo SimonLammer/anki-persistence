@@ -1,5 +1,7 @@
 # anki-persistence
-Persist data between both sides of an anki flashcard. While the following example explicitly shows the random number, it could instead be used internally to do many different things:
+Persist data between both sides of an anki flashcard.
+
+While the following example explicitly shows the random number, it could instead be used internally to do many different things:
 
 * choose one of several pictures (at random) *- Maybe someone wants to learn the names of instruments from a picture depicting it; One of multiple views of the instrument could be shown, a different one in every review.*
 * reorder elements in the card *- Shuffle the answers of a multiple choice question.*
