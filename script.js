@@ -1,33 +1,76 @@
 if (typeof(window.Persistence) === 'undefined') {
-  var _persistenceKey = 'github.com/SimonLammer/anki-persistence';
+  var _persistenceKey = 'github.com/SimonLammer/anki-persistence/';
+  var _defaultKey = '_default';
   window.Persistence_sessionStorage = function() { // used in android
     var isAvailable = false;
     try {
       if (typeof(window.sessionStorage) === 'object') {
         isAvailable = true;
-        this.store = function(data) {
-          sessionStorage.setItem(_persistenceKey, JSON.stringify(data));
+        this.clear = function() {
+          for (var i = 0; i < sessionStorage.length; i++) {
+            var k = sessionStorage.key(i);
+            if (k.indexOf(_persistenceKey) == 0) {
+              sessionStorage.removeItem(k);
+              i--;
+            }
+          };
         };
-        this.load = function() {
-          return JSON.parse(sessionStorage.getItem(_persistenceKey));
-        }
+        this.setItem = function(key, data) {
+          if (data == undefined) {
+            data = key;
+            key = _defaultKey;
+          }
+          sessionStorage.setItem(_persistenceKey + key, JSON.stringify(data));
+        };
+        this.getItem = function(key) {
+          if (key == undefined) {
+            key = _defaultKey;
+          }
+          return JSON.parse(sessionStorage.getItem(_persistenceKey + key));
+        };
+        this.removeItem = function(key) {
+          if (key == undefined) {
+            key = _defaultKey;
+          }
+          sessionStorage.removeItem(_persistenceKey + key);
+        };
       }
     } catch(err) {}
     this.isAvailable = function() {
       return isAvailable;
-    }
+    };
   };
-  window.Persistence_windowKey =  function(persistentKey) {
+  window.Persistence_windowKey = function(persistentKey) {
     var obj = window[persistentKey];
     var isAvailable = false;
     if (typeof(obj) === 'object') {
       isAvailable = true;
-      this.store = function(data) {
-        obj[_persistenceKey] = data;
+      this.clear = function() {
+        obj[_persistenceKey] = {};
       };
-      this.load = function() {
-        return obj[_persistenceKey] || null;
+      this.setItem = function(key, data) {
+        if (data == undefined) {
+          data = key;
+          key = _defaultKey;
+        }
+        obj[_persistenceKey][key] = data;
       };
+      this.getItem = function(key) {
+        if (key == undefined) {
+          key = _defaultKey;
+        }
+        return obj[_persistenceKey][key] || null;
+      };
+      this.removeItem = function(key) {
+        if (key == undefined) {
+          key = _defaultKey;
+        }
+        delete obj[_persistenceKey][key];
+      };
+
+      if (obj[_persistenceKey] == undefined) {
+        this.clear();
+      }
     }
     this.isAvailable = function() {
       return isAvailable;

@@ -13,20 +13,51 @@
 }].forEach(function(args) {
 	describe(args.constructor, function() {
 		var persistence = args.generator();
+		var data = [
+			1,
+			2.2,
+			'3',
+			{"value": 4}
+		];
 		it('is available', function() {
-			expect(persistence).not.toBeUndefined();
 			expect(persistence.isAvailable()).toEqual(true);
 		});
-		it('.load before .store returns null', function() {
-			expect(persistence).not.toBeUndefined();
-			expect(persistence.load()).toBeNull();
+		it('works without key', function() {
+			expect(persistence.getItem()).toBeNull();
+			persistence.removeItem();
+
+			for (var i = 0; i < data.length; i++) {
+				persistence.setItem(data[i]);
+				expect(persistence.getItem()).toEqual(data[i]);
+			}
+			
+			persistence.removeItem();
+			expect(persistence.getItem()).toBeNull();
+
+			persistence.setItem(data[0]);
+			persistence.clear();
+			expect(persistence.getItem()).toBeNull();
 		});
-		it('.store, .load', function() {
-			expect(persistence).not.toBeUndefined();
-			var data = 4;
-			persistence.store(data);
-			expect(persistence.load()).toEqual(data);
-			persistence.store(null);
+		it('works with key', function() {
+			for (var i = 0; i < data.length; i++) {
+				expect(persistence.getItem('' + i)).toBeNull();
+				persistence.removeItem('' + i); // shouldn't throw an error
+			}
+
+			for (var i = 0; i < data.length; i++) {
+				persistence.setItem('' + i, data[i]);
+				expect(persistence.getItem('' + i)).toEqual(data[i]);
+			}
+			
+			for (var i = 0; i < data.length; i++) {
+				persistence.removeItem('' + i);
+				expect(persistence.getItem('' + i)).toBeNull();
+				persistence.setItem('' + i, data[i]);
+			}
+			persistence.clear();
+			for (var i = 0; i < data.length; i++) {
+				expect(persistence.getItem('' + i)).toBeNull();
+			}
 		});
 	});
 });
