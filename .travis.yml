@@ -31,7 +31,7 @@ deploy:
   on:
     repo: SimonLammer/anki-persistence
     branch: master
-    condition: "$(git describe --tags --abbrev=0)" != "$VERSION"
+    condition: $(git describe --tags --abbrev=0) != $VERSION
 cache:
   directories:
   - node_modules

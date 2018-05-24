@@ -1,6 +1,6 @@
 {
   "name": "anki-persistence",
-  "version": "0.3.1",
+  "version": "0.3.0",
   "description": "Persist data between both sides of an anki flashcard.",
   "main": "script.js",
   "directories": {
