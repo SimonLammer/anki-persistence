@@ -40,7 +40,7 @@ if (typeof(window.Persistence) === 'undefined') {
       return isAvailable;
     };
   };
-  window.Persistence_windowKey = function(persistentKey) {
+  window.Persistence_windowKey = function(persistentKey) { // used in windows, linux, mac and iOS
     var obj = window[persistentKey];
     var isAvailable = false;
     if (typeof(obj) === 'object') {
@@ -76,17 +76,13 @@ if (typeof(window.Persistence) === 'undefined') {
       return isAvailable;
     };
   };
-  var persistentKeys = [
-    "py", // used in windows
-    "qt"  // used in linux, mac and iOS
-  ];
-  for (var i = 0; i < persistentKeys.length; i++) {
-    window.Persistence = new Persistence_windowKey(persistentKeys[i]);
-    if (window.Persistence.isAvailable()) {
-      break;
-    }
-  }
+  window.Persistence = new Persistence_sessionStorage(); // android
   if (!window.Persistence.isAvailable()) {
-    window.Persistence = new Persistence_sessionStorage();
+    var userAgentSubstr = navigator.userAgent.match(/\([^)]*\)/)[0];
+    if (userAgentSubstr.indexOf("Windows") >= 0) {
+      window.Persistence = new Persistence_windowKey("py"); // windows
+    } else if (window.location.toString().indexOf("main") >= 0) { // disable in preview and card editor preview; see https://github.com/SimonLammer/anki-persistence/issues/23
+      window.Persistence = new Persistence_windowKey("qt"); // linux, mac & iOS
+    }
   }
 }
