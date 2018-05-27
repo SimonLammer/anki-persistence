@@ -29,11 +29,11 @@ deploy:
   - script.js
   skip_cleanup: true
   name: "$VERSION"
-  prerelease: "true"
-  draft: true
+  prerelease: $([ $(echo $VERSION | sed -r -e 's/v([0-9]+).*/\1/') == $(git describe --tags --abbrev=0 | sed -r -e 's/v([0-9]+).*/\1/') ] && printf 'true' || printf 'false') # false if major version changed, true otherwise
+  draft: false
   on:
     repo: SimonLammer/anki-persistence
-    branch: travis
+    branch: master
     condition: $(git describe --tags --abbrev=0) != $VERSION
 cache:
   directories:
