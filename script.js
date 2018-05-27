@@ -81,7 +81,9 @@ if (typeof(window.Persistence) === 'undefined') {
     var userAgentSubstr = navigator.userAgent.match(/\([^)]*\)/)[0];
     if (userAgentSubstr.indexOf("Windows") >= 0) {
       window.Persistence = new Persistence_windowKey("py"); // windows
-    } else if (window.location.toString().indexOf("main") >= 0) { // disable in preview and card editor preview; see https://github.com/SimonLammer/anki-persistence/issues/23
+    } else if (
+      (window.location.toString() == "about:blank" || window.location.toString().indexOf("main") >= 0)
+    ) { // disable in preview and card editor preview; see https://github.com/SimonLammer/anki-persistence/issues/23
       window.Persistence = new Persistence_windowKey("qt"); // linux, mac & iOS
     }
   }
