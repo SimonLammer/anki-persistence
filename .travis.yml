@@ -28,9 +28,12 @@ deploy:
   - minified.js
   - script.js
   skip_cleanup: true
+  name: "$VERSION"
+  prerelease: "true"
+  draft: true
   on:
     repo: SimonLammer/anki-persistence
-    branch: master
+    branch: travis
     condition: $(git describe --tags --abbrev=0) != $VERSION
 cache:
   directories:
