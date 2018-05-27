@@ -76,15 +76,26 @@ if (typeof(window.Persistence) === 'undefined') {
       return isAvailable;
     };
   };
+  /*
+   *   client  | sessionStorage | persistentKey | useful location |
+   * ----------|----------------|---------------|-----------------|
+   * windows   |       NO       |       py      |       NO        |
+   * android   |       YES      |       -       |       NO        |
+   * linux 2.0 |       NO       |       qt      |       YES       |
+   * linux 2.1 |       NO       |       qt      |       YES       |
+   * mac 2.0   |       NO       |       py      |       NO        |
+   * mac 2.1   |       NO       |       qt      |       YES       |
+   * iOS       |       NO       |       qt      |       YES       |
+   */
   window.Persistence = new Persistence_sessionStorage(); // android
-  if (!window.Persistence.isAvailable()) {
-    var userAgentSubstr = navigator.userAgent.match(/\([^)]*\)/)[0];
-    if (userAgentSubstr.indexOf("Windows") >= 0) {
-      window.Persistence = new Persistence_windowKey("py"); // windows
-    } else if (
-      (window.location.toString() == "about:blank" || window.location.toString().indexOf("main") >= 0)
-    ) { // disable in preview and card editor preview; see https://github.com/SimonLammer/anki-persistence/issues/23
-      window.Persistence = new Persistence_windowKey("qt"); // linux, mac & iOS
+  if (!Persistence.isAvailable()) {
+    window.Persistence = new Persistence_windowKey("py"); // windows & mac (2.0)
+  }
+  if (!Persistence.isAvailable()) {
+    var titleStartIndex = window.location.toString().indexOf('title'); // if titleStartIndex > 0, window.location is useful
+    var titleContentIndex = window.location.toString().indexOf('main', titleStartIndex);
+    if (titleStartIndex > 0 && titleContentIndex > 0 && (titleContentIndex - titleStartIndex) < 10) {
+      window.Persistence = new Persistence_windowKey("qt"); // linux, mac (2.1) & iOS
     }
   }
 }
