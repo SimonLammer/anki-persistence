@@ -28,6 +28,9 @@ deploy:
   - minified.js
   - script.js
   skip_cleanup: true
+  name: "$VERSION"
+  prerelease: $([ $(echo $VERSION | sed -r -e 's/v([0-9]+).*/\1/') == $(git describe --tags --abbrev=0 | sed -r -e 's/v([0-9]+).*/\1/') ] && printf 'true' || printf 'false') # false if major version changed, true otherwise
+  draft: false
   on:
     repo: SimonLammer/anki-persistence
     branch: master
