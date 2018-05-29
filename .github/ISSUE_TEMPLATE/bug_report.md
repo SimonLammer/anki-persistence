@@ -21,12 +21,14 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Error occurs in these anki clients:**
- - Web
+ - Web (specify browsers)
  - Android
  - iOS
- - Mac
+ - Mac (2.0)
+ - Mac (2.1)
  - Windows
- - Linux
+ - Linux (2.0)
+ - Linux (2.1)
 
 **Additional context**
 Add any other context about the problem here.
