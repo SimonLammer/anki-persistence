@@ -15,12 +15,12 @@ if (typeof(window.Persistence) === 'undefined') {
             }
           };
         };
-        this.setItem = function(key, data) {
-          if (data == undefined) {
-            data = key;
+        this.setItem = function(key, value) {
+          if (value == undefined) {
+            value = key;
             key = _defaultKey;
           }
-          sessionStorage.setItem(_persistenceKey + key, JSON.stringify(data));
+          sessionStorage.setItem(_persistenceKey + key, JSON.stringify(value));
         };
         this.getItem = function(key) {
           if (key == undefined) {
@@ -48,12 +48,12 @@ if (typeof(window.Persistence) === 'undefined') {
       this.clear = function() {
         obj[_persistenceKey] = {};
       };
-      this.setItem = function(key, data) {
-        if (data == undefined) {
-          data = key;
+      this.setItem = function(key, value) {
+        if (value == undefined) {
+          value = key;
           key = _defaultKey;
         }
-        obj[_persistenceKey][key] = data;
+        obj[_persistenceKey][key] = value;
       };
       this.getItem = function(key) {
         if (key == undefined) {

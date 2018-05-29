@@ -3,8 +3,8 @@ Persist data between both sides of an anki flashcard.
 
 While the following example explicitly shows the random number, it could instead be used internally to do many different things:
 
-* choose one of several pictures (at random) *- Maybe someone wants to learn the names of instruments from a picture depicting it; One of multiple views of the instrument could be shown, a different one in every review.*
-* reorder elements in the card *- Shuffle the answers of a multiple choice question.*
+* Choose one of several pictures (at random) *- Maybe someone wants to learn the names of instruments from a picture depicting it; One of multiple views of the instrument could be shown, a different one in every review.*
+* Reorder elements in the card *- Shuffle the answers of a multiple choice question.*
 * ...
 
 It could also be used completely different as well. To let the user input something on the frontside and use that same input on the backside for example.
@@ -31,7 +31,11 @@ This example shows how anki-persistence can be used to display the same random n
 |   Linux (card preview) | ![Random number example on the Linux client (card preview) - Front](examples/random-number/Linux_Preview-Front.jpg) | ![Random number example on the Linux client (card preview) - Back](examples/random-number/Linux_Preview-Back.jpg) |
 |   Linux (card type editor preview) | ![Random number example on the Linux client (card type editor preview) - Front](examples/random-number/Linux_ctePreview-Front.jpg) | ![Random number example on the Linux client (card type editor preview) - Back](examples/random-number/Linux_ctePreview-Back.jpg) |
 
-**Note that Persistence is not available for desktop client previews (```Persistence.isAvailable()``` returns ```false```), thus a default (0.4) is chosen.**
+#### Why is 0.4 chosen so often?
+
+The most powerful feature of this project is that you can check availability of persistence on the front side - there should never be a case where ```Persistence.isAvailable()``` returns ```true``` on the front- and ```false``` on the backside *(if there is, [please create a bug report](https://github.com/SimonLammer/anki-persistence/issues/new?template=bug_report.md), so it can be fixed as soon as possible)*.
+
+The shown example chooses 0.4 as default value - to be overwritten if ```Persistence.isAvailable``` returns ```true``` (which is not the case for desktop client previews).
 
 ### Setup
 #### Front side
@@ -109,14 +113,14 @@ Other methods:
 |                       Name    | Description |
 | -----------------------------:|:----------- |
 |            ```Persistence.clear()``` | Removes all previously persisted key-value pairs. |
-|       ```Persistence.getItem(key)``` | Retrieves the data associated with the key. If no data is associated to the given key, null is returned. |
-|         ```Persistence.getItem())``` | Retrieves the data associated with a default key. |
-| ```Persistence.setItem(key, data)``` | Persists the key-value pair. |
-|      ```Persistence.setItem(data)``` | Persists the value using a default key. |
-|    ```Persistence.removeItem(key)``` | Removes the data associated with the key. If no data is associated to the given key, nothing happens. |
-|       ```Persistence.removeItem()``` | Removes the data associated with a default key. |
+|       ```Persistence.getItem(key)``` | Retrieves the value associated with the key. If no value is associated to the given key, null is returned. |
+|         ```Persistence.getItem()``` | Retrieves the value associated with a default key. |
+| ```Persistence.setItem(key, value)``` | Persists the key-value pair. |
+|      ```Persistence.setItem(value)``` | Persists the value using a default key. |
+|    ```Persistence.removeItem(key)``` | Removes the value associated with the key. If no value is associated to the given key, nothing happens. |
+|       ```Persistence.removeItem()``` | Removes the value associated with a default key. |
 
-*Some implementations of Persistence may use JSON.stringify and JSON.parse in the process of persisting and retrieving data.*
+*Some implementations of Persistence may use JSON.stringify and JSON.parse in the process of persisting and retrieving data. If you plan on persisting a custom object, make sure that ```obj``` equals ```JSON.parse(JSON.stringify(obj))```.*
 
 ### Clear storage
 
