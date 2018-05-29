@@ -1,4 +1,4 @@
-# anki-persistence
+# anki-persistence [![Build Status](https://travis-ci.org/SimonLammer/anki-persistence.svg?branch=master)](https://travis-ci.org/SimonLammer/anki-persistence)
 Persist data between both sides of an anki flashcard.
 
 While the following example explicitly shows the random number, it could instead be used internally to do many different things:
