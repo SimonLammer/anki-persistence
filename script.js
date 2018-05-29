@@ -1,7 +1,7 @@
 if (typeof(window.Persistence) === 'undefined') {
   var _persistenceKey = 'github.com/SimonLammer/anki-persistence/';
   var _defaultKey = '_default';
-  window.Persistence_sessionStorage = function() { // used in android
+  window.Persistence_sessionStorage = function() { // used in android, iOS
     var isAvailable = false;
     try {
       if (typeof(window.sessionStorage) === 'object') {
@@ -40,7 +40,7 @@ if (typeof(window.Persistence) === 'undefined') {
       return isAvailable;
     };
   };
-  window.Persistence_windowKey = function(persistentKey) { // used in windows, linux, mac and iOS
+  window.Persistence_windowKey = function(persistentKey) { // used in windows, linux, mac
     var obj = window[persistentKey];
     var isAvailable = false;
     if (typeof(obj) === 'object') {
@@ -85,9 +85,9 @@ if (typeof(window.Persistence) === 'undefined') {
    * linux 2.1 |       NO       |       qt      |       YES       |
    * mac 2.0   |       NO       |       py      |       NO        |
    * mac 2.1   |       NO       |       qt      |       YES       |
-   * iOS       |       NO       |       qt      |       YES       |
+   * iOS       |       YES      |       -       |       NO        |
    */
-  window.Persistence = new Persistence_sessionStorage(); // android
+  window.Persistence = new Persistence_sessionStorage(); // android & iOS
   if (!Persistence.isAvailable()) {
     window.Persistence = new Persistence_windowKey("py"); // windows & mac (2.0)
   }
@@ -95,7 +95,7 @@ if (typeof(window.Persistence) === 'undefined') {
     var titleStartIndex = window.location.toString().indexOf('title'); // if titleStartIndex > 0, window.location is useful
     var titleContentIndex = window.location.toString().indexOf('main', titleStartIndex);
     if (titleStartIndex > 0 && titleContentIndex > 0 && (titleContentIndex - titleStartIndex) < 10) {
-      window.Persistence = new Persistence_windowKey("qt"); // linux, mac (2.1) & iOS
+      window.Persistence = new Persistence_windowKey("qt"); // linux, mac (2.1)
     }
   }
 }
