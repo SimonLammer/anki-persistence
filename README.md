@@ -11,7 +11,7 @@ It could also be used completely different as well. To let the user input someth
 
 ## Example: Random number
 
-This example shows how anki-persistence can be used to display the same random number on both sides of an Anki flash card. **All of these images depict the same note!** You can try it out yourself with [this exported Anki deck](examples/random-number/anki-persistence.apkg).
+This example shows how anki-persistence can be used to display the same random number on both sides of an Anki flash card. **All of these images depict the same card!** You can try it out yourself with [this exported Anki deck](examples/random-number/anki-persistence.apkg).
 
 ### Result
 | Client  | Front | Back |
@@ -92,7 +92,7 @@ These are set to ```front``` and ```back``` respectively.
 ## Preparation
 
 To use anki-persistense, follow these steps:
-1. Download the script from [the latest release](releases/latest). We recommend using the minified version (```minified.js```) to save space in the anki card type.
+1. Download the script from [the latest release](releases/latest). Using the minified version (```minified.js```) is recommended, in order to save space in the anki card type. (A link to the non-minified version is always added to the file, in case someone wants to look at the human-readable code.)
 1. Copy and paste the file contents between to the beginning of front and back side of the card type.
 1. Ensure that both script blocks are enclosed in ```<script>``` and ```</script>```.
 
@@ -124,7 +124,7 @@ Other methods:
 
 ### Clear storage
 
-```Persistence.setItem``` may persist data across cards, this should be stopped by calling ```Persistence.clear()``` at the end of the backside. (If this gets called on the frontside's beginning instead, you cannot use anki's ```{{FrontSide}}``` special field in the backside *- because this would delete the persisted data*)
+```Persistence.setItem``` may persist data across cards, this should be stopped by calling ```Persistence.clear()``` at the end of the backside. (If this gets called on the frontside's beginning instead, you cannot use anki's ```{{FrontSide}}``` special field in the backside *- because doing so would delete the persisted data*)
 
 ## How it works
 
@@ -132,7 +132,7 @@ There are two separate internal implementations of Persistence: ```Persistence_s
 
 Anki's android client has no persistent window properties, so the internal implementation of choice is obviously ```Persistence_sessionStorage```. The desktop clients don't permit the ```sessionStorage``` property, so ```Persistence_windowKey``` is used.
 
-Additional thought is required for linux and mac 2.1 clients. The window property, which is persistent in review mode, is present - but not persistent - in the preview modes. ```window.location``` helps us circumvent this issue, as it contains html, which only specifies title as ```main webview``` in review mode.
+Additional thought is required for linux and mac 2.1 clients. The window property, which is persistent in review mode, is present - but not persistent - in the preview modes. ```window.location``` helps us circumvent this issue, as it contains html, which only specifies `title` as ```main webview``` in review mode.
 
 # Acknowledgements
 
