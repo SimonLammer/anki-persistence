@@ -1,7 +1,7 @@
 if (typeof(window.Persistence) === 'undefined') {
   var _persistenceKey = 'github.com/SimonLammer/anki-persistence/';
   var _defaultKey = '_default';
-  window.Persistence_sessionStorage = function() { // used in android, iOS
+  window.Persistence_sessionStorage = function() { // used in android, iOS, web
     var isAvailable = false;
     try {
       if (typeof(window.sessionStorage) === 'object') {
@@ -15,12 +15,12 @@ if (typeof(window.Persistence) === 'undefined') {
             }
           };
         };
-        this.setItem = function(key, data) {
-          if (data == undefined) {
-            data = key;
+        this.setItem = function(key, value) {
+          if (value == undefined) {
+            value = key;
             key = _defaultKey;
           }
-          sessionStorage.setItem(_persistenceKey + key, JSON.stringify(data));
+          sessionStorage.setItem(_persistenceKey + key, JSON.stringify(value));
         };
         this.getItem = function(key) {
           if (key == undefined) {
@@ -48,12 +48,12 @@ if (typeof(window.Persistence) === 'undefined') {
       this.clear = function() {
         obj[_persistenceKey] = {};
       };
-      this.setItem = function(key, data) {
-        if (data == undefined) {
-          data = key;
+      this.setItem = function(key, value) {
+        if (value == undefined) {
+          value = key;
           key = _defaultKey;
         }
-        obj[_persistenceKey][key] = data;
+        obj[_persistenceKey][key] = value;
       };
       this.getItem = function(key) {
         if (key == undefined) {
@@ -79,6 +79,7 @@ if (typeof(window.Persistence) === 'undefined') {
   /*
    *   client  | sessionStorage | persistentKey | useful location |
    * ----------|----------------|---------------|-----------------|
+   * web       |       YES      |       -       |       NO        |
    * windows   |       NO       |       py      |       NO        |
    * android   |       YES      |       -       |       NO        |
    * linux 2.0 |       NO       |       qt      |       YES       |
@@ -87,9 +88,9 @@ if (typeof(window.Persistence) === 'undefined') {
    * mac 2.1   |       NO       |       qt      |       YES       |
    * iOS       |       YES      |       -       |       NO        |
    */
-  window.Persistence = new Persistence_sessionStorage(); // android & iOS
+  window.Persistence = new Persistence_sessionStorage(); // android, iOS, web
   if (!Persistence.isAvailable()) {
-    window.Persistence = new Persistence_windowKey("py"); // windows & mac (2.0)
+    window.Persistence = new Persistence_windowKey("py"); // windows, mac (2.0)
   }
   if (!Persistence.isAvailable()) {
     var titleStartIndex = window.location.toString().indexOf('title'); // if titleStartIndex > 0, window.location is useful
