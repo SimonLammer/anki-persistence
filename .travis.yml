@@ -12,8 +12,10 @@ install:
 script:
 - printf "// $VERSION - $GH_SCRIPT_URL\n$(cat script.js)" > script.js
 - cat script.js
+- wc script.js
 - 'curl -X POST -s --data-urlencode "input@script.js" https://javascript-minifier.com/raw > minified.js'
 - printf "$(head -n 1 script.js)\n$(cat minified.js)" > minified.js
+- wc minified.js
 - cat minified.js
 - npm test
 before_deploy:
