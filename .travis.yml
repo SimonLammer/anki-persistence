@@ -10,6 +10,7 @@ install:
 - wget https://dl.google.com/closure-compiler/compiler-latest.zip -O closure-compiler.zip
 - unzip closure-compiler.zip -d closure-compiler
 script:
+- cat script.js
 - printf "// $VERSION - $GH_SCRIPT_URL\n$(cat script.js)" > script.js
 - cat script.js
 - wc script.js
