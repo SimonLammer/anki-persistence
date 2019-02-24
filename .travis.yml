@@ -10,10 +10,10 @@ install:
 - wget https://dl.google.com/closure-compiler/compiler-latest.zip -O closure-compiler.zip
 - unzip closure-compiler.zip -d closure-compiler
 script:
-- printf "// $VERSION - $GH_SCRIPT_URL\n$(cat script.js)" > script.js
+- printf "// $VERSION - $GH_SCRIPT_URL\n$(cat script.js)\n" > script.js
 - cat script.js
 - 'curl -X POST -s --data-urlencode "input@script.js" https://javascript-minifier.com/raw > minified.js'
-- printf "$(head -n 1 script.js)\n$(cat minified.js)" > minified.js
+- printf "$(head -n 1 script.js)\n$(cat minified.js)\n" > minified.js
 - cat minified.js
 - npm test
 before_deploy:
