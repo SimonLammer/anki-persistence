@@ -14,6 +14,7 @@
 	describe(args.constructor, function() {
 		var persistence = args.generator();
 		var data = [
+			0,
 			1,
 			2.2,
 			'3',
