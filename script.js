@@ -59,7 +59,7 @@ if (typeof(window.Persistence) === 'undefined') {
         if (key == undefined) {
           key = _defaultKey;
         }
-        return obj[_persistenceKey][key] || null;
+        return obj[_persistenceKey][key] == undefined ? null : obj[_persistenceKey][key];
       };
       this.removeItem = function(key) {
         if (key == undefined) {
