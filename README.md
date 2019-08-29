@@ -144,7 +144,7 @@ Huge thanks to
 
 ## Anki projects utilizing anki-persistence
 
-* [Set Randomizer by hgiesel](https://github/hgiesel/anki-set-randomizer), also on [AnkiWeb](https://ankiweb.net/shared/info/1164532380)
+* [Set Randomizer by hgiesel](https://github.com/hgiesel/anki-set-randomizer), also on [AnkiWeb](https://ankiweb.net/shared/info/1164532380)
 
 ## Other references
 
