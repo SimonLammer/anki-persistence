@@ -120,6 +120,8 @@ Other methods:
 |    ```Persistence.removeItem(key)``` | Removes the value associated with the key. If no value is associated to the given key, nothing happens. |
 |       ```Persistence.removeItem()``` | Removes the value associated with a default key. |
 
+`key` may be any string.
+
 *Some implementations of Persistence may use JSON.stringify and JSON.parse in the process of persisting and retrieving data. If you plan on persisting a custom object, make sure that ```obj``` equals ```JSON.parse(JSON.stringify(obj))```.*
 
 ### Clear storage
