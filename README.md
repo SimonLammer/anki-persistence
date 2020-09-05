@@ -72,7 +72,7 @@ if(void 0===window.Persistence){var _persistenceKey="github.com/SimonLammer/anki
 
 {{Back}}
 
-<div id="back"></dv>
+<div id="back"></div>
 
 <script>
 var number = 0.4;                 // Default to 0.4.
