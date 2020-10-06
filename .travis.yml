@@ -7,7 +7,8 @@ language: generic
 before_install:
 - npm install
 install:
-- npm install google-closure-compiler:latest
+- wget https://dl.google.com/closure-compiler/compiler-latest.zip -O closure-compiler.zip
+- unzip closure-compiler.zip -d closure-compiler
 script:
 - printf "// $VERSION - $GH_SCRIPT_URL\n$(cat script.js)\n" > script.js
 - cat script.js
