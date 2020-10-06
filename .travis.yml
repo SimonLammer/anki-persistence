@@ -7,7 +7,7 @@ language: generic
 before_install:
 - npm install
 install:
-- npm install google-closure-compiler:latest
+- npm install google-closure-compiler
 script:
 - printf "// $VERSION - $GH_SCRIPT_URL\n$(cat script.js)\n" > script.js
 - cat script.js
