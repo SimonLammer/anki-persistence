@@ -35,7 +35,7 @@ This example shows how anki-persistence can be used to display the same random n
 
 The most powerful feature of this project is that you can check availability of persistence on the front side - there should never be a case where ```Persistence.isAvailable()``` returns ```true``` on the front- and ```false``` on the backside *(if there is, [please create a bug report](https://github.com/SimonLammer/anki-persistence/issues/new?template=bug_report.md), so it can be fixed as soon as possible)*.
 
-The shown example chooses 0.4 as default value - to be overwritten if ```Persistence.isAvailable``` returns ```true``` (which is not the case for desktop client previews).
+The shown example chooses 0.4 as default value - to be overwritten if ```Persistence.isAvailable``` returns ```true``` (which is not the case for desktop client previews). Therefore the card will only use the random number when it is sure that it can be persisted to the back side, and default to 0.4 otherwise.
 
 ### Setup
 #### Front side
