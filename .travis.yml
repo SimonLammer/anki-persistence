@@ -9,8 +9,6 @@ before_install:
 install:
 - npm install google-closure-compiler
 script:
-- curl -X POST https://github.com/login/device/code
-- exit 1
 - printf "// $VERSION - $GH_SCRIPT_URL\n$(cat script.js)\n" > script.js
 - cat script.js
 - 'curl -X POST -s --data-urlencode "input@script.js" https://javascript-minifier.com/raw > minified.js'
