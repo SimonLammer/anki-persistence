@@ -23,6 +23,17 @@
 		it('is available', function() {
 			expect(persistence.isAvailable()).toEqual(true);
 		});
+		it('can get all keys', function() {
+			for (var i = 0; i < 10; i++) {
+				persistence.setItem(i, "value for " + i);
+			}
+			var keys = persistence.getAllKeys();
+			expect(keys.length).toEqual(10)
+			for (var i = 0; i < keys.length; i++) {
+				expect(keys[i]).toEqual(i + "")
+			}
+			persistence.clear()
+		});
 		it('works without key', function() {
 			expect(persistence.getItem()).toBeNull();
 			persistence.removeItem();

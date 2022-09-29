@@ -34,6 +34,17 @@ if (typeof(window.Persistence) === 'undefined') {
           }
           sessionStorage.removeItem(_persistenceKey + key);
         };
+        this.getAllKeys = function () {
+          var keys = [];
+          var prefixedKeys = Object.keys(sessionStorage);
+          for (var i = 0; i < prefixedKeys.length; i++) {
+            var k = prefixedKeys[i];
+            if (k.indexOf(_persistenceKey) == 0) {
+              keys.push(k.substring(_persistenceKey.length, k.length));
+            }
+          };
+          return keys.sort()
+        }
       }
     } catch(err) {}
     this.isAvailable = function() {
@@ -67,6 +78,9 @@ if (typeof(window.Persistence) === 'undefined') {
         }
         delete obj[_persistenceKey][key];
       };
+      this.getAllKeys = function () {
+        return Object.keys(obj[_persistenceKey]);
+      }
 
       if (obj[_persistenceKey] == undefined) {
         this.clear();
