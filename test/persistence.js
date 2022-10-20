@@ -60,7 +60,6 @@
 			for (var i = 0; i < data.length; i++) {
 				persistence.setItem('' + i, data[i]);
 				expect(persistence.getItem('' + i)).toEqual(data[i]);
-				expect(persistence.getItem('' + i)).toBeNull(); // Added to check how GH Actions handle test failures
 			}
 
 			for (var i = 0; i < data.length; i++) {
