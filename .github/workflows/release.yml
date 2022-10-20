@@ -74,3 +74,17 @@ jobs:
             #files: |
             #script-minified.js
 
+      - name: Update Readme with new anki-persistence version
+        run: |
+          perl -pi -e "
+            use strict;
+            use warnings;
+            BEGIN{undef $/;};
+            s@// v[^\n]*\n[^\n]*@`cat script-minified.js | sed -z 's/\n/\\n/g'`@smg;" \
+            README.md
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test
+          path: |
+            README.md
+
