@@ -18,7 +18,8 @@
 			1,
 			2.2,
 			'3',
-			{"value": 4}
+			{"value": 4},
+			[1, 2, 3],
 		];
 		it('is available', function() {
 			expect(persistence.isAvailable()).toEqual(true);
@@ -42,7 +43,7 @@
 				persistence.setItem(data[i]);
 				expect(persistence.getItem()).toEqual(data[i]);
 			}
-			
+
 			persistence.removeItem();
 			expect(persistence.getItem()).toBeNull();
 
@@ -60,7 +61,7 @@
 				persistence.setItem('' + i, data[i]);
 				expect(persistence.getItem('' + i)).toEqual(data[i]);
 			}
-			
+
 			for (var i = 0; i < data.length; i++) {
 				persistence.removeItem('' + i);
 				expect(persistence.getItem('' + i)).toBeNull();
