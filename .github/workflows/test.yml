@@ -8,6 +8,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - echo "test"
-      - date
+      - run: echo "test"
+      - run: date
 
