@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: pwd
+      - run: ls -hl
       - run: VERSION="v$(jq <package.json -r '.version')"
       - run: echo "VERSION=${VERSION}" >> $GITHUB_ENV # https://stackoverflow.com/a/70399393/2808520
       - uses: actions/checkout@v3
