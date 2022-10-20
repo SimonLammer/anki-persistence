@@ -26,8 +26,14 @@ jobs:
         with:
           ref: master
           path: master
-      - run: echo "VERSION_MAIN=`jq <master/package.json -r '.version'`" >>$GITHUB_ENV
-      - run: echo "VERSION_CURRENT=`jq <package.json -r '.version'`" >>$GITHUB_ENV
+      - name: Fetch main version number
+        run: |
+          echo "VERSION_MAIN=`jq <master/package.json -r '.version'`" >>$GITHUB_ENV
+          echo ${{ env.VERSION_MAIN }}
+      - name: Fetch current version number
+        run: |
+          echo "VERSION_CURRENT=`jq <package.json -r '.version'`" >>$GITHUB_ENV
+          echo ${{ env.VERSION_CURRENT }}
 
       - uses: actions/setup-node@v3
         with:
@@ -66,7 +72,9 @@ jobs:
             assert(i<m.length-1||c[i]>m[i], "Current version number equals master version number");'
 
       # Release
-      - run: echo "RELEASE_NAME=v${{ env.VERSION_CURRENT }}" >>$GITHUB_ENV
+      - run: |
+          echo "RELEASE_NAME=v${{ env.VERSION_CURRENT }}" >>$GITHUB_ENV
+          echo ${{ env.RELEASE_NAME }}
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
