@@ -13,13 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: VERSION="v$(jq <package.json -r '.version')"
-      - run: echo "VERSION=${VERSION}" >> $GITHUB_ENV # https://stackoverflow.com/a/70399393/2808520
-      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
-      - run: printf "// ${VERSION} - ${BLOB_URL_PREFIX}/${GITHUB_SHA}\n" > ${SCRIPT_MINIFIED}
+      - run: echo "VERSION=\"v`jq <package.json -r '.version'`\"" >> $GITHUB_ENV # https://stackoverflow.com/a/70399393/2808520
+      - run: printf "// ${VERSION} - ${BLOB_URL_PREFIX}/${GITHUB_SHA}/script.js\n" > ${SCRIPT_MINIFIED}
       - run: npm run minify | tail -n 1 >>${SCRIPT_MINIFIED}
       - run: cat ${SCRIPT_MINIFIED}
 
