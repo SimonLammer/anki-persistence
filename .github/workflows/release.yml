@@ -1,6 +1,7 @@
 name: Release
 
 env:
+  VERSION: "v$(jq <package.json -r '.version')"
   SCRIPT_MINIFIED: minified.js
   SCRIPT_BLOB_URL: "https://github.com/SimonLammer/anki-persistence/blob/${GITHUB_SHA}"
 
@@ -16,7 +17,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
-      - run: printf "// $VERSION - $GH_SCRIPT_URL\n" > ${SCRIPT_MINIFIED}
+      - run: printf "// $VERSION - $SCRIPT_BLOB_URL\n" > ${SCRIPT_MINIFIED}
       - run: npm run minify | tail -n 1 >>${SCRIPT_MINIFIED}
       - run: cat ${SCRIPT_MINIFIED}
 
