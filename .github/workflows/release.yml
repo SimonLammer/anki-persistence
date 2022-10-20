@@ -27,13 +27,11 @@ jobs:
           ref: master
           path: master
       - name: Fetch main version number
-        run: |
-          echo "VERSION_MAIN=`jq <master/package.json -r '.version'`" >>$GITHUB_ENV
-          echo ${{ env.VERSION_MAIN }}
+        run: echo "VERSION_MAIN=`jq <master/package.json -r '.version'`" >>$GITHUB_ENV
+      - run: echo VERSION_MAIN=${{ env.VERSION_MAIN }}
       - name: Fetch current version number
-        run: |
-          echo "VERSION_CURRENT=`jq <package.json -r '.version'`" >>$GITHUB_ENV
-          echo ${{ env.VERSION_CURRENT }}
+        run: echo "VERSION_CURRENT=`jq <package.json -r '.version'`" >>$GITHUB_ENV
+      - run: echo VERSION_MAIN=${{ env.VERSION_MAIN }}
 
       - uses: actions/setup-node@v3
         with:
@@ -44,7 +42,8 @@ jobs:
           printf "// ${{ env.VERSION_CURRENT }} - ${{ env.BLOB_URL_PREFIX }}/$GITHUB_SHA/${{ env.SCRIPT }}\n" >${{ env.SCRIPT_MINIFIED }}
           npm run minify | tail -n 1 >>${{ env.SCRIPT_MINIFIED }}
 
-      - run: |
+      - name: Create version files
+        run: |
           echo ${{ env.VERSION_MAIN }} > version-main.txt
           echo ${{ env.VERSION_CURRENT }} > version-current.txt
       - uses: actions/upload-artifact@v3
@@ -72,9 +71,7 @@ jobs:
             assert(i<m.length-1||c[i]>m[i], "Current version number equals master version number");'
 
       # Release
-      - run: |
-          echo "RELEASE_NAME=v${{ env.VERSION_CURRENT }}" >>$GITHUB_ENV
-          echo ${{ env.RELEASE_NAME }}
+      - run: echo "RELEASE_NAME=v${{ env.VERSION_CURRENT }}" >>$GITHUB_ENV
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
