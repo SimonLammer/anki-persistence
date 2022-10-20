@@ -4,11 +4,13 @@ env:
   SCRIPT: script.js
   SCRIPT_MINIFIED: script-minified.js
   BLOB_URL_PREFIX: "https://github.com/SimonLammer/anki-persistence/blob"
+  RELEASE_BRANCH: "readme-script_version-bump"
 
 on:
   workflow_run:
     workflows: ["Test"]
-    branches-ignore: []
+    branches-ignore:
+      - "readme-script_version-bump"
     types:
       - completed
   push:
@@ -101,7 +103,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           title: "Update README script version to ${{ env.RELEASE_NAME }}"
-          branch: "readme-script_version-bump"
+          branch: ${{ env.RELEASE_BRANCH }}
           commit-message: "Update README script version to ${{ env.RELEASE_NAME }}"
           delete-branch: true
 
