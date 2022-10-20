@@ -1,0 +1,107 @@
+name: Release
+
+env:
+  SCRIPT: script.js
+  SCRIPT_MINIFIED: script-minified.js
+  BLOB_URL_PREFIX: "https://github.com/SimonLammer/anki-persistence/blob"
+  RELEASE_BRANCH: "readme-script_version-bump"
+
+on:
+  workflow_run:
+    workflows: ["Test"]
+    branches-ignore:
+      - "readme-script_version-bump"
+    types:
+      - completed
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v3
+
+      # Fetch version numbers
+      - uses: actions/checkout@v3
+        with:
+          ref: master
+          path: master
+      - name: Fetch main version number
+        run: echo "VERSION_MAIN=`jq <master/package.json -r '.version'`" >>$GITHUB_ENV
+      - run: echo VERSION_MAIN=${{ env.VERSION_MAIN }}
+      - name: Fetch current version number
+        run: echo "VERSION_CURRENT=`jq <package.json -r '.version'`" >>$GITHUB_ENV
+      - run: echo VERSION_MAIN=${{ env.VERSION_MAIN }}
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+
+      - name: Minify ${{ env.SCRIPT }}
+        run: |
+          printf "// ${{ env.VERSION_CURRENT }} - ${{ env.BLOB_URL_PREFIX }}/$GITHUB_SHA/${{ env.SCRIPT }}\n" >${{ env.SCRIPT_MINIFIED }}
+          npm run minify | tail -n 1 >>${{ env.SCRIPT_MINIFIED }}
+
+      - name: Create version files
+        run: |
+          echo ${{ env.VERSION_MAIN }} > version-main.txt
+          echo ${{ env.VERSION_CURRENT }} > version-current.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: release
+          path: |
+            version-main.txt
+            version-current.txt
+            ${{ env.SCRIPT }}
+            ${{ env.SCRIPT_MINIFIED }}
+
+      - name: Ensure version number has been incremented
+        run: |
+          node -e '
+            function r(v){
+              return v.trim().split(".").map(Number);
+            };
+            c=r("${{ env.VERSION_CURRENT }}");
+            m=r("${{ env.VERSION_MAIN }}");
+            for (i in m) {
+              if(c[i]>m[i])
+                break;
+              assert(c[i]==m[i], "Current version is lower than master version")
+            };
+            assert(i<m.length-1||c[i]>m[i], "Current version number equals master version number");'
+
+      # Release
+      - run: echo "RELEASE_NAME=v${{ env.VERSION_CURRENT }}" >>$GITHUB_ENV
+      - name: Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: ${{ secrets.GH_TOKEN }}
+          automatic_release_tag: latest
+          prerelease: false
+          draft: false
+          title: ${{ env.RELEASE_NAME }}
+          files: |
+            ${{ env.SCRIPT_MINIFIED }}
+
+      - name: Update Readme with new anki-persistence version
+        run: |
+          perl -pi -e "
+            use strict;
+            use warnings;
+            BEGIN{undef $/;};
+            s@// v[^\n]*\n[^\n]*@`cat ${{ env.SCRIPT_MINIFIED }} | sed -z 's/\n/\\n/g'`@smg;" \
+            README.md
+      - name: Cleanup temporary files
+        run: |
+          rm -rf \
+            master \
+            ${{ env.SCRIPT_MINIFIED }} \
+            version*.txt
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: "Update README script version to ${{ env.RELEASE_NAME }}"
+          branch: ${{ env.RELEASE_BRANCH }}
+          commit-message: "Update README script version to ${{ env.RELEASE_NAME }}"
+          delete-branch: true
+
