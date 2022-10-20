@@ -19,23 +19,35 @@ jobs:
     #if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v3
+
+      # Ensure version has been incremented
+      - uses: actions/checkout@v3
+        with:
+          ref: master
+          path: master
+      - run: jq <master/package.json -r '.version'
+      - run: jq <master/package.json -r '.version' >version-main.txt
+      - run: jq <master/package.json -r '.version' >version_main.txt
+      - run: ls -lah
+      - run: jq <package.json -r '.version'
+      - run: jq <package.json -r '.version' >version-current.txt
+
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
 
-      # Ensure version has been incremented
-      - run: jq <package.json -r '.version' > version.txt
-
       # Minify script
-      - run: printf "// `cat version.txt` - ${BLOB_URL_PREFIX}/${GITHUB_SHA}/script.js\n" >${SCRIPT_MINIFIED}
+      - run: printf "// `cat version-current.txt` - ${BLOB_URL_PREFIX}/${GITHUB_SHA}/script.js\n" >${SCRIPT_MINIFIED}
       - run: npm run minify | tail -n 1 >>${SCRIPT_MINIFIED}
 
       # Upload artifacts
+      - run: ls -lah
       - uses: actions/upload-artifact@v3
         with:
           name: release
           path: |
-            version.txt
+            version-main.txt
+            version-current.txt
             script.js
             script_minified.js
 
