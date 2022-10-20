@@ -31,7 +31,7 @@ jobs:
       - run: echo VERSION_MAIN=${{ env.VERSION_MAIN }}
       - name: Fetch current version number
         run: echo "VERSION_CURRENT=`jq <package.json -r '.version'`" >>$GITHUB_ENV
-      - run: echo VERSION_MAIN=${{ env.VERSION_MAIN }}
+      - run: echo VERSION_CURRENT=${{ env.VERSION_CURRENT }}
 
       - uses: actions/setup-node@v3
         with:
