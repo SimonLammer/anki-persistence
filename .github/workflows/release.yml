@@ -2,7 +2,7 @@ name: Release
 
 env:
   SCRIPT_MINIFIED: minified.js
-  SCRIPT_BLOB_URL: "https://github.com/SimonLammer/anki-persistence/blob/${GITHUB_SHA}"
+  BLOB_URL_PREFIX: "https://github.com/SimonLammer/anki-persistence/blob"
 
 on:
   push:
@@ -12,19 +12,14 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - run: pwd
-      - run: ls -hl
-      - run: ls -hl ..
       - uses: actions/checkout@v3
-      - run: ls -hl
-      - run: ls -hl ..
       - run: VERSION="v$(jq <package.json -r '.version')"
       - run: echo "VERSION=${VERSION}" >> $GITHUB_ENV # https://stackoverflow.com/a/70399393/2808520
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
-      - run: printf "// $VERSION - $SCRIPT_BLOB_URL\n" > ${SCRIPT_MINIFIED}
+      - run: printf "// ${VERSION} - ${BLOB_URL_PREFIX}/${GITHUB_SHA}\n" > ${SCRIPT_MINIFIED}
       - run: npm run minify | tail -n 1 >>${SCRIPT_MINIFIED}
       - run: cat ${SCRIPT_MINIFIED}
 
