@@ -1,8 +1,8 @@
 name: Release
 
 env:
-  SCRIPT_MINIFIED = minified.js
-  SCRIPT_BLOB_URL = "https://github.com/SimonLammer/anki-persistence/blob/${GITHUB_SHA}"
+  SCRIPT_MINIFIED: minified.js
+  SCRIPT_BLOB_URL: "https://github.com/SimonLammer/anki-persistence/blob/${GITHUB_SHA}"
 
 on:
   push:
