@@ -50,33 +50,33 @@ jobs:
             ${{ env.SCRIPT }}
             ${{ env.SCRIPT_MINIFIED }}
 
-      - run: echo ${{ env.VERSION_MAIN }} ${{ env.VERSION_CURRENT }}
       - name: Ensure version number has been incremented
-        run: node -e '
-          function r(v){
-            return v.trim().split(".").map(Number);
-          };
-          c=r("${{ env.VERSION_CURRENT }}");
-          m=r("${{ env.VERSION_MAIN }}");
-          for (i in m) {
-            if(c[i]>m[i])
-              break;
-            assert(c[i]==m[i], "Current version is lower than master version")
-          };
-          assert(i<m.length-1||c[i]>m[i], "Current version number equals master version number");'
+        run: |
+          node -e '
+            function r(v){
+              return v.trim().split(".").map(Number);
+            };
+            c=r("${{ env.VERSION_CURRENT }}");
+            m=r("${{ env.VERSION_MAIN }}");
+            for (i in m) {
+              if(c[i]>m[i])
+                break;
+              assert(c[i]==m[i], "Current version is lower than master version")
+            };
+            assert(i<m.length-1||c[i]>m[i], "Current version number equals master version number");'
 
       # Release
       - run: echo "RELEASE_NAME=v${{ env.VERSION_CURRENT }}" >>$GITHUB_ENV
-        #- name: Release
-        #uses: "marvinpinto/action-automatic-releases@latest"
-          #with:
-          #repo_token: ${{ secrets.GH_TOKEN }}
-            #automatic_release_tag: latest
-            #prerelease: false
-            #draft: true
-            #title: ${{ env.RELEASE_NAME }}
-            #files: |
-            #${{ env.SCRIPT_MINIFIED }}
+      - name: Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: ${{ secrets.GH_TOKEN }}
+          automatic_release_tag: latest
+          prerelease: false
+          draft: true
+          title: ${{ env.RELEASE_NAME }}
+          files: |
+            ${{ env.SCRIPT_MINIFIED }}
 
       - name: Update Readme with new anki-persistence version
         run: |
