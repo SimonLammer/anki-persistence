@@ -110,15 +110,17 @@ if (Persistence.isAvailable()) {
 
 Other methods:
 
-|                       Name    | Description |
-| -----------------------------:|:----------- |
-|            ```Persistence.clear()``` | Removes all previously persisted key-value pairs. |
+|                       Name    | Description                                                                                                |
+| -----------------------------:|:-----------------------------------------------------------------------------------------------------------|
+|            ```Persistence.clear()``` | Removes all previously persisted key-value pairs.                                                          |
 |       ```Persistence.getItem(key)``` | Retrieves the value associated with the key. If no value is associated to the given key, null is returned. |
-|         ```Persistence.getItem()``` | Retrieves the value associated with a default key. |
-| ```Persistence.setItem(key, value)``` | Persists the key-value pair. |
-|      ```Persistence.setItem(value)``` | Persists the value using a default key. |
-|    ```Persistence.removeItem(key)``` | Removes the value associated with the key. If no value is associated to the given key, nothing happens. |
-|       ```Persistence.removeItem()``` | Removes the value associated with a default key. |
+|         ```Persistence.getItem()``` | Retrieves the value associated with a default key.                                                         |
+| ```Persistence.setItem(key, value)``` | Persists the key-value pair.                                                                               |
+|      ```Persistence.setItem(value)``` | Persists the value using a default key.                                                                    |
+|    ```Persistence.removeItem(key)``` | Removes the value associated with the key. If no value is associated to the given key, nothing happens.    |
+|       ```Persistence.removeItem()``` | Removes the value associated with a default key.                                                           |
+|       ```Persistence.getAllKeys()``` | Retrieves all keys in storage.                                                                             |
+
 
 `key` may be any string.
 
@@ -147,6 +149,7 @@ Huge thanks to
 ## Anki projects utilizing anki-persistence
 
 * [Set Randomizer by hgiesel](https://github.com/hgiesel/anki-set-randomizer), also on [AnkiWeb](https://ankiweb.net/shared/info/1164532380)
+* [Anki awesome select](https://github.com/git9527/anki-awesome-select)
 
 ## Other references
 
