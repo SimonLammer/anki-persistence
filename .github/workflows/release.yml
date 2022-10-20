@@ -62,15 +62,15 @@ jobs:
           assert(i<m.length-1||c[i]>m[i], "Current version number equals master version number");'
 
       # Release
-      - run: echo "RELEASE_NAME=v`cat version-current.txt`" >>$GITHUB_ENV
-      - name: Release
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: ${{ secrets.GH_TOKEN }}
-          automatic_release_tag: latest
-          prerelease: false
-          draft: true
-          title: ${{ env.RELEASE_NAME }}
-          files: |
-            script-minified.js
+      #- run: echo "RELEASE_NAME=v`cat version-current.txt`" >>$GITHUB_ENV
+        #- name: Release
+        #uses: "marvinpinto/action-automatic-releases@latest"
+          #with:
+          #repo_token: ${{ secrets.GH_TOKEN }}
+            #automatic_release_tag: latest
+            #prerelease: false
+            #draft: true
+            #title: ${{ env.RELEASE_NAME }}
+            #files: |
+            #script-minified.js
 
