@@ -13,8 +13,6 @@ on:
       - "readme-script_version-bump"
     types:
       - completed
-  push:
-    branches: [ci]
 
 jobs:
   release:
@@ -80,7 +78,7 @@ jobs:
           repo_token: ${{ secrets.GH_TOKEN }}
           automatic_release_tag: latest
           prerelease: false
-          draft: true
+          draft: false
           title: ${{ env.RELEASE_NAME }}
           files: |
             ${{ env.SCRIPT_MINIFIED }}
