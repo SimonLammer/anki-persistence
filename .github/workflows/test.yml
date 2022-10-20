@@ -1,0 +1,11 @@
+name: Test
+
+on:
+  push:
+    branches-ignore: []
+
+jobs:
+  test:
+    steps:
+      - echo test
+
