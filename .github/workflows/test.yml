@@ -8,6 +8,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "test"
-      - run: date
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+      - run: npm install
+      - run: npm test
 
