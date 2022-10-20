@@ -22,16 +22,12 @@ jobs:
       - uses: actions/checkout@v3
 
       # Fetch version numbers
-      - uses: actions/checkout@v3
-        with:
-          ref: master
-          path: master
-      - name: Fetch main version number
-        run: echo "VERSION_MAIN=`jq <master/package.json -r '.version'`" >>$GITHUB_ENV
-      - run: echo VERSION_MAIN=${{ env.VERSION_MAIN }}
+      - id: latest_release
+        uses: gregziegan/fetch-latest-release@v2.0.0
+      - run: echo "VERSION_LATEST=`echo '${{ steps.latest_release.outputs.name }}' | cut -c 2-`" >>$GITHUB_ENV
       - name: Fetch current version number
         run: echo "VERSION_CURRENT=`jq <package.json -r '.version'`" >>$GITHUB_ENV
-      - run: echo VERSION_MAIN=${{ env.VERSION_MAIN }}
+      - run: echo VERSION_CURRENT=${{ env.VERSION_CURRENT }}
 
       - uses: actions/setup-node@v3
         with:
@@ -44,13 +40,13 @@ jobs:
 
       - name: Create version files
         run: |
-          echo ${{ env.VERSION_MAIN }} > version-main.txt
+          echo ${{ env.VERSION_LATEST }} > version-latest.txt
           echo ${{ env.VERSION_CURRENT }} > version-current.txt
       - uses: actions/upload-artifact@v3
         with:
           name: release
           path: |
-            version-main.txt
+            version-latest.txt
             version-current.txt
             ${{ env.SCRIPT }}
             ${{ env.SCRIPT_MINIFIED }}
@@ -61,14 +57,14 @@ jobs:
             function r(v){
               return v.trim().split(".").map(Number);
             };
-            c=r("${{ env.VERSION_CURRENT }}");
-            m=r("${{ env.VERSION_MAIN }}");
-            for (i in m) {
-              if(c[i]>m[i])
+            current=r("${{ env.VERSION_CURRENT }}");
+            latest=r("${{ env.VERSION_LATEST }}");
+            for (i in latest) {
+              if(current[i]>latest[i])
                 break;
-              assert(c[i]==m[i], "Current version is lower than master version")
+              assert(current[i]==latest[i], "Current version is lower than latest version")
             };
-            assert(i<m.length-1||c[i]>m[i], "Current version number equals master version number");'
+            assert(i<latest.length-1||current[i]>latest[i], "Current version number equals latest version number");'
 
       # Release
       - run: echo "RELEASE_NAME=v${{ env.VERSION_CURRENT }}" >>$GITHUB_ENV
@@ -94,7 +90,6 @@ jobs:
       - name: Cleanup temporary files
         run: |
           rm -rf \
-            master \
             ${{ env.SCRIPT_MINIFIED }} \
             version*.txt
       - name: Create Pull Request
