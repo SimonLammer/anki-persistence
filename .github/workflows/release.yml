@@ -62,7 +62,7 @@ jobs:
           assert(i<m.length-1||c[i]>m[i], "Current version number equals master version number");'
 
       # Release
-      #- run: echo "RELEASE_NAME=v`cat version-current.txt`" >>$GITHUB_ENV
+      - run: echo "RELEASE_NAME=v`cat version-current.txt`" >>$GITHUB_ENV
         #- name: Release
         #uses: "marvinpinto/action-automatic-releases@latest"
           #with:
@@ -82,9 +82,19 @@ jobs:
             BEGIN{undef $/;};
             s@// v[^\n]*\n[^\n]*@`cat script-minified.js | sed -z 's/\n/\\n/g'`@smg;" \
             README.md
-      - uses: actions/upload-artifact@v3
+      - name: Cleanup temporary files
+        run: |
+          ls -lah
+          rm -rf \
+            master \
+            script-minified.js \
+            version*.txt
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
         with:
-          name: test
-          path: |
-            README.md
+          #token: ${{ secrets.GH_TOKEN }}
+          title: "Update README script version to ${{env.RELEASE_NAME}}"
+          branch: "readme-${RELEASE_NAME}-bump"
+          commit-message: "Update README script version to ${{env.RELEASE_NAME}}"
+          delete-branch: true
 
