@@ -32,12 +32,11 @@ jobs:
         with:
           cache: 'npm'
 
-      # Minify script
-      - run: printf "// `cat version-current.txt` - ${BLOB_URL_PREFIX}/${GITHUB_SHA}/script.js\n" >${SCRIPT_MINIFIED}
-      - run: npm run minify | tail -n 1 >>${SCRIPT_MINIFIED}
+      - name: Minify script.js
+        run: |
+          printf "// `cat version-current.txt` - ${BLOB_URL_PREFIX}/${GITHUB_SHA}/script.js\n" >${SCRIPT_MINIFIED}
+          npm run minify | tail -n 1 >>${SCRIPT_MINIFIED}
 
-      # Upload artifacts
-      - run: ls -lah
       - uses: actions/upload-artifact@v3
         with:
           name: release
@@ -47,8 +46,8 @@ jobs:
             script.js
             script-minified.js
 
-      # Ensure version number has been incremented
-      - run: node -e '
+      - name: Ensure version number has been incremented
+        run: node -e '
           const fs=require("fs");
           function r(f){
             return fs.readFileSync(f).toString().trim().split(".").map(Number);
