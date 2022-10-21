@@ -13,11 +13,13 @@ on:
       - "readme-script_version-bump"
     types:
       - completed
+  push:
+    branches: [ci]
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+      #if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v3
 
@@ -64,7 +66,7 @@ jobs:
                 break;
               assert(current[i]==latest[i], "Current version is lower than latest version")
             };
-            assert(i<latest.length-1||current[i]>latest[i], "Current version number equals latest version number");'
+            assert(i<latest.length-1||current[i]>=latest[i], "Current version number equals latest version number");'
 
       # Release
       - run: echo "RELEASE_NAME=v${{ env.VERSION_CURRENT }}" >>$GITHUB_ENV
@@ -74,6 +76,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           tag_name: ${{ env.RELEASE_NAME }}
           generate_release_notes: true
+          draft: true
           files: |
             ${{ env.SCRIPT_MINIFIED }}
 
@@ -85,6 +88,8 @@ jobs:
             BEGIN{undef $/;};
             s@// v[^\n]*\n[^\n]*@`cat ${{ env.SCRIPT_MINIFIED }} | sed -z 's/\n/\\n/g'`@smg;" \
             README.md
+      - run: cat README.md
+      - run: git status
       - name: Cleanup temporary files
         run: |
           rm -rf \
