@@ -92,7 +92,7 @@ These are set to ```front``` and ```back``` respectively.
 ## Preparation
 
 To use anki-persistense, follow these steps:
-1. Download the script from [the latest release](https://github.com/SimonLammer/anki-persistence/releases/tag/v1.0.0). Using the minified version (```minified.js```) is recommended, in order to save space in the anki card type. (A link to the non-minified version is always added to the file, in case someone wants to look at the human-readable code.)
+1. Download the script from [the latest release](https://github.com/SimonLammer/anki-persistence/releases/tag/latest). Using the minified version (```script-minified.js```) is recommended, in order to save space in the anki card type. (A link to the non-minified version is always prepended to the file, in case someone wants to look at the human-readable code.)
 1. Copy and paste the file contents between to the beginning of front and back side of the card type.
 1. Ensure that both script blocks are enclosed in ```<script>``` and ```</script>```.
 
