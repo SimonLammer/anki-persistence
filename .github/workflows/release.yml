@@ -35,7 +35,7 @@ jobs:
 
       - name: Minify ${{ env.SCRIPT }}
         run: |
-          printf "// ${{ env.VERSION_CURRENT }} - ${{ env.BLOB_URL_PREFIX }}/$GITHUB_SHA/${{ env.SCRIPT }}\n" >${{ env.SCRIPT_MINIFIED }}
+          printf "// v${{ env.VERSION_CURRENT }} - ${{ env.BLOB_URL_PREFIX }}/$GITHUB_SHA/${{ env.SCRIPT }}\n" >${{ env.SCRIPT_MINIFIED }}
           npm run minify | tail -n 1 >>${{ env.SCRIPT_MINIFIED }}
 
       - name: Create version files
@@ -74,6 +74,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           tag_name: ${{ env.RELEASE_NAME }}
           generate_release_notes: true
+          draft: false
           files: |
             ${{ env.SCRIPT_MINIFIED }}
 
