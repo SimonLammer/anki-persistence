@@ -13,11 +13,13 @@ on:
       - "readme-script_version-bump"
     types:
       - completed
+  push:
+    branches: [ci]
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+      #if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v3
 
@@ -68,6 +70,9 @@ jobs:
 
       # Release
       - run: echo "RELEASE_NAME=v${{ env.VERSION_CURRENT }}" >>$GITHUB_ENV
+      - uses: rickstaa/action-create-tag@v1
+        with:
+          tag: ${{ env.RELEASE_NAME }}
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
