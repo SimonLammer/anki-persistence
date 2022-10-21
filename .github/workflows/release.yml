@@ -80,6 +80,8 @@ jobs:
           files: |
             ${{ env.SCRIPT_MINIFIED }}
 
+      - run: ls -lah
+      - run: cat ${{ env.SCRIPT_MINIFIED }}
       - name: Update Readme with new anki-persistence version
         run: |
           perl -pi -e "
